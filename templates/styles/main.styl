@@ -1,0 +1,330 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+body{line-height:1}
+ol,ul{list-style:none}
+blockquote,q{quotes:none}
+blockquote:before,blockquote:after,q:before,q:after{content:none}
+table{border-collapse:collapse;border-spacing:0}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+m = 50px
+unicol = rgba(128, 128, 128, 0.29)
+
+// Dark mode
+
+fontcol = #eee
+bgcol = #000
+metacol = yellow
+
+body
+  color fontcol
+  background bgcol
+  header
+    background bgcol  
+    color fontcol
+  .views
+    color fontcol
+  .font input
+    color fontcol
+.fsBox
+  background bgcol
+  color fontcol
+  input
+    color inherit
+
+// Bright mode
+
+fontcol = #000
+bgcol = #eee
+metacol = #999
+
+body.bright
+  color fontcol
+  background bgcol
+  header
+    background bgcol  
+    color fontcol
+  .views
+    color fontcol
+  .font input
+    color fontcol
+  .fsBox
+    background bgcol
+    color fontcol
+    input
+      color inherit
+
+body
+  font-family dejavu_sans_condensed
+  font-size 15px
+  line-height 20px
+  &.nonotice
+    .notice
+      display none
+
+
+// Icons
+
+.icon
+  font-size 20px
+button.icon
+  border none
+  background unicol
+  padding 5px 4px
+  vertical-align middle
+  color inherit
+  &:active
+    background gray
+  &:focus
+    outline 1px dotted white
+
+header
+  position fixed
+  width 100%
+  height 60px
+  left 0
+  top 0
+  padding 0 m
+  z-index 5
+  border-bottom 1px solid unicol
+  .topnav
+    float left
+    height 100%
+    width 20%
+    a
+      text-decoration none
+      height 100%
+      display block
+      border none
+      .icon-logo
+        font-size 30px
+        padding-top 1em
+        padding-left 0
+  #search_form
+    height 100%
+    float left
+    #search_query
+      color inherit
+      margin-right 1px
+      font-size 2em
+      width 10em
+  .views
+    height 100%
+    float right
+    .font-size
+      .valuebox
+        display none
+      input
+        width 100px
+    ul
+      height 100%
+      li
+        display block
+        height 100%
+        float left
+        padding 0 1px 0 0
+  .fullh
+    height 100%
+    vertical-align middle
+    padding-left 30px
+    padding-right 30px
+.content
+  padding-top 80px
+  h1
+    font-size 3em
+    margin m 0 m m
+.notice
+  font-size 40px
+  line-height 50px
+  padding 0 m 40px m
+  
+.typeface
+  padding m m
+  clear both
+  overflow hidden
+  line-height 1.6em
+  border-bottom 1px solid unicol
+  .meta
+    float left
+    width 20%
+    display block
+    color metacol
+    line-height 25px
+    //border-right 1px solid unicol
+    &>li
+      margin-bottom 10px
+    li
+      &.fontname
+        margin-bottom 10px
+      li:before
+        content ''
+        padding-right 1.2em
+    h2
+      color metacol 
+  .fontlist
+    float left
+    width 80%
+    .font
+      transition all 0.1s ease-out
+      margin 0 0 10px 0
+      .fontdemo1, .fontdemo2
+        overflow hidden
+      .fontdemo1 input, .fontdemo2 input
+        transition width 0.3s ease-out
+        height 1.5em
+        width 100%
+        background transparent
+        border 0
+        &::selection
+          color inherit
+          background rgba(255, 255, 0, 1)
+        &::-moz-selection
+          color inherit
+          background rgba(255, 255, 0, 1)
+
+      .fontdemo1 input
+        font-size 80px
+        white-space nowrap
+        font-family inherit
+      .fontdemo2 input
+        display none
+      .legend
+        font-size 14px
+        color metacol
+        a
+          border-bottom none
+        .icon-fullscreen
+          margin-left 0px
+          background none
+          color inherit
+          cursor pointer
+          font-size 1em
+.gridview
+  .typeface
+    .font
+      width 30% 
+      display inline-block
+      margin-right 1%
+      vertical-align top
+      position relative
+      &:after
+        content " "
+        height 100%
+        width 30px
+        position absolute
+        right 0
+        top 0
+        background linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%)
+      .fontdemo2
+        display block
+  &.bright
+    .font:after
+      background linear-gradient(to right, rgba(238, 238, 238, 0) 0%,#eee 100%)
+  
+// FullScreen Box
+
+.fsBox
+  width 100%
+  height 100%
+  padding 100px
+  position fixed
+  text-align center
+  top 0
+  left 0
+  z-index 20
+  font-size 40%
+  &.displayed
+    display block
+  input
+    text-align center
+    color inherit
+  .close-fullscreen
+    font-size 10em
+    position absolute
+    top m*.5
+    right m*.5
+    cursor pointer
+.pagination
+  background unicol
+  padding 20px 
+  clear both
+  font-size 2em
+  margin m 0
+  text-align center
+  li 
+    display inline
+    list-style none
+    margin 0 20px
+    a
+      text-decoration none
+      color metacol
+      &:hover
+        text-decoration underline
+a
+  color inherit
+  text-decoration none
+  border-bottom 1px dotted
+  &:hover
+    border-style solid
+
+input[type=text]
+  border none
+  background unicol
+
+button::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner {
+    border: none;
+}
+::selection
+  background fontcol
+  color bgcol
+::-moz-selection
+  background fontcol
+  color bgcol
+
+
+@font-face
+  font-family: 'dejavu_sans_condensed'
+  src: url('fonts/dejavusanscondensed-webfont.eot')
+  src: url('fonts/dejavusanscondensed-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/dejavusanscondensed-webfont.woff') format('woff'),
+         url('fonts/dejavusanscondensed-webfont.ttf') format('truetype'),
+         url('fonts/dejavusanscondensed-webfont.svg#dejavu_sans_condensedbook') format('svg')
+  font-weight: normal
+  font-style: normal
+
+@font-face
+  font-family: 'dejavu_sans_condensed'
+  src: url('fonts/dejavusanscondensed-bold-webfont.eot')
+  src: url('fonts/dejavusanscondensed-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/dejavusanscondensed-bold-webfont.woff') format('woff'),
+         url('fonts/dejavusanscondensed-bold-webfont.ttf') format('truetype'),
+         url('fonts/dejavusanscondensed-bold-webfont.svg#dejavu_sans_condensedbold') format('svg')
+  font-weight: bold
+  font-style: normal
+
+@font-face
+  font-family: 'dejavu_sans_condensed'
+  src: url('fonts/dejavusanscondensed-boldoblique-webfont.eot')
+  src: url('fonts/dejavusanscondensed-boldoblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/dejavusanscondensed-boldoblique-webfont.woff') format('woff'),
+         url('fonts/dejavusanscondensed-boldoblique-webfont.ttf') format('truetype'),
+         url('fonts/dejavusanscondensed-boldoblique-webfont.svg#dejavu_sans_condensedbold_oblique') format('svg')
+  font-weight: bold
+  font-style: italic
+
+@font-face
+  font-family: 'dejavu_sans_condensed'
+  src: url('fonts/dejavusanscondensed-oblique-webfont.eot')
+  src: url('fonts/dejavusanscondensed-oblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/dejavusanscondensed-oblique-webfont.woff') format('woff'),
+         url('fonts/dejavusanscondensed-oblique-webfont.ttf') format('truetype'),
+         url('fonts/dejavusanscondensed-oblique-webfont.svg#dejavu_sans_condensedoblique') format('svg')
+  font-weight: normal
+  font-style: italic

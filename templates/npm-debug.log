@@ -1,0 +1,75 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/0.10.17/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'home',
+1 verbose cli   'readme' ]
+2 info using npm@1.3.8
+3 info using node@v0.10.17
+4 verbose url raw readme/latest
+5 verbose url resolving [ 'http://registry.npmjs.org/', './readme/latest' ]
+6 verbose url resolved http://registry.npmjs.org/readme/latest
+7 info trying registry request attempt 1 at 17:18:34
+8 http GET http://registry.npmjs.org/readme/latest
+9 http 500 http://registry.npmjs.org/readme/latest
+10 verbose bad json Internal routing error
+10 verbose bad json
+10 verbose bad json Sorry, we cannot connect to the intended server.
+10 verbose bad json
+10 verbose bad json We have just been notified of this problem. We will correct it as soon as possible.
+10 verbose bad json
+10 verbose bad json Feel free to contact us if you have any questions: support@iriscouch.com
+11 error registry error parsing json
+12 info retry will retry, error on last attempt: SyntaxError: Unexpected token I
+12 info retry Internal routing error
+12 info retry
+12 info retry Sorry, we cannot connect to the intended server.
+12 info retry
+12 info retry We have just been notified of this problem. We will correct it as soon as possible.
+12 info retry
+12 info retry Feel free to contact us if you have any questions: support@iriscouch.com
+13 info trying registry request attempt 2 at 17:19:47
+14 http GET http://registry.npmjs.org/readme/latest
+15 info retry will retry, error on last attempt: Error: connect ETIMEDOUT
+16 info trying registry request attempt 3 at 17:22:04
+17 http GET http://registry.npmjs.org/readme/latest
+18 http 500 http://registry.npmjs.org/readme/latest
+19 verbose bad json Internal routing error
+19 verbose bad json
+19 verbose bad json Sorry, we cannot connect to the intended server.
+19 verbose bad json
+19 verbose bad json We have just been notified of this problem. We will correct it as soon as possible.
+19 verbose bad json
+19 verbose bad json Feel free to contact us if you have any questions: support@iriscouch.com
+20 error registry error parsing json
+21 silly registry.get cb [ 500,
+21 silly registry.get   { 'content-type': 'text/plain', 'content-length': '239' } ]
+22 error SyntaxError: Unexpected token I
+22 error Internal routing error
+22 error
+22 error Sorry, we cannot connect to the intended server.
+22 error
+22 error We have just been notified of this problem. We will correct it as soon as possible.
+22 error
+22 error Feel free to contact us if you have any questions: support@iriscouch.com
+22 error
+22 error     at Object.parse (native)
+22 error     at RegClient.<anonymous> (/usr/local/Cellar/node/0.10.17/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:238:23)
+22 error     at Request.self.callback (/usr/local/Cellar/node/0.10.17/lib/node_modules/npm/node_modules/request/index.js:148:22)
+22 error     at Request.EventEmitter.emit (events.js:98:17)
+22 error     at Request.<anonymous> (/usr/local/Cellar/node/0.10.17/lib/node_modules/npm/node_modules/request/index.js:891:14)
+22 error     at Request.EventEmitter.emit (events.js:117:20)
+22 error     at IncomingMessage.<anonymous> (/usr/local/Cellar/node/0.10.17/lib/node_modules/npm/node_modules/request/index.js:842:12)
+22 error     at IncomingMessage.EventEmitter.emit (events.js:117:20)
+22 error     at _stream_readable.js:920:16
+22 error     at process._tickCallback (node.js:415:13)
+23 error If you need help, you may report this log at:
+23 error     <http://github.com/isaacs/npm/issues>
+23 error or email it to:
+23 error     <npm-@googlegroups.com>
+24 error System Darwin 12.5.0
+25 error command "/usr/local/Cellar/node/0.10.17/bin/node" "/usr/local/bin/npm" "home" "readme"
+26 error cwd /Users/pierre/Projets/Use-Modify/processwire-BP/site/templates
+27 error node -v v0.10.17
+28 error npm -v 1.3.8
+29 error type unexpected_token
+30 verbose exit [ 1, true ]
