@@ -98,7 +98,7 @@ foreach($fontlist as $font){
       echo "</style>";
       echo "<p class='fontdemo1' style='font-family:\"{$fontname}\";'><input type=text value='$demotext1'></p>";
       echo "<p class='fontdemo2' style='font-family:\"{$fontname}\";'><input type=text value='$demotext2'></p>";
-      echo "<p class='legend'><a href='{$font->url}'>{$fontname}</a> <button title='Fullscreen view' class='icon fullscreen icon-fullscreen'></button>";
+      echo "<p class='legend'><button title='Fullscreen view' class='icon fullscreen icon-fullscreen'></button><a href='{$font->url}'>{$fontname}</a></p>";
       echo "</div>"; // END .font
     }
     echo "</div>"; // END .fontlist
@@ -106,6 +106,8 @@ foreach($fontlist as $font){
   }
 }
 
+if($pagination){
   echo "<div class='pagination'>";
   echo $pagination;
   echo "</div>";
+}

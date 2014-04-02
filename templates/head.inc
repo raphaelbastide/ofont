@@ -24,7 +24,7 @@
         <div class="views">
           <ul>
           <li><button title="Toggle light" class="fullh icon icon-light"></button></li>
-          <li><button title="Toggle grid" class="fullh icon icon-fullview"></button></li>
+          <li><button title="Toggle grid" class="fullh icon icon-gridview"></button></li>
           <li>
             <label class="font-size">
               <span class="fullh icon icon-size"></span> <span class="valuebox">(<span class="value">80</span>pt):</span>

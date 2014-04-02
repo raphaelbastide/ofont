@@ -27,7 +27,7 @@
     }
   }
   setView(Cookies.get('setView') === '1')();
-  q('.icon-fullview').onclick = setView();
+  q('.icon-gridview').onclick = setView();
 
   // Intro text
   function intro(hide) {
@@ -89,6 +89,11 @@
   
   // Fullscreen
   var fs = false;
+
+  function closeFS(){
+    $('.fsBox').remove();
+    fs = !fs    
+  }
   $('.fullscreen').click(function(){
     var button = $(this),
         font = button.parent('.legend').parent('.font'),
@@ -99,14 +104,14 @@
       input.clone().appendTo(fsBox);
       fs = !fs;
     }else{
-      $('.fsBox').remove();
-      fs = !fs
+      closeFS();
     }
   })
   $(document).on('click', '.close-fullscreen' , function() {
-    $('.fsBox').remove();
-    console.log('foo')
-    fs = !fs
+    closeFS();
+  });
+  $(document).keypress(function() {
+    closeFS();
   });
 }());
 

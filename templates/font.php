@@ -1,12 +1,7 @@
 <?php 
-
-/**
- * Font template
- *
- */
-
 include("./head.inc"); 
 
+if (!$page->draft){
   echo "<div class='typeface'>";
   echo "<ul class='meta'>";
   echo "<li class='fontname'><a href='{$page->url}'>{$page->title}</a></li>";
@@ -117,12 +112,16 @@ include("./head.inc");
     font-style: normal;
 }";
     echo "</style>";
-    echo "<p class='fontdemo1' style='font-family:\"{$fontname}\"';'><input type=text value='$demotext1'></p>";
-    echo "<p class='fontdemo2' style='font-family:\"{$fontname}\";'><input type=text value='$demotext2'></p>";
-    echo "<p class='legend'><a href='{$font->url}'>{$fontname}</a></p>";
-    echo "</div>"; // END .font
+      echo "<p class='fontdemo1' style='font-family:\"{$fontname}\";'><input type=text value='$demotext1'></p>";
+      echo "<p class='fontdemo2' style='font-family:\"{$fontname}\";'><input type=text value='$demotext2'></p>";
+      echo "<p class='legend'><button title='Fullscreen view' class='icon fullscreen icon-fullscreen'></button><a href='{$font->url}'>{$fontname}</a></p>";
+      echo "</div>"; // END .font
+    }
+    echo "</div>"; // END .fontlist
+    echo "</div>"; // END .typeface
+  }else{
+    echo "<h1>This font is not public yet.</h1>";
   }
-  echo "</div>"; // END .fontlist
 
 include("./foot.inc"); 
 
