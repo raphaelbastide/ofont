@@ -148,6 +148,9 @@ body .font input {
 .fsBox input {
   color: inherit;
 }
+.meta {
+  color: #d3d3d3;
+}
 body.bright {
   color: #000;
   background: #eee;
@@ -168,6 +171,9 @@ body.bright .fsBox {
 }
 body.bright .fsBox input {
   color: inherit;
+}
+body.bright .meta {
+  color: #808080;
 }
 body {
   font-family: dejavu_sans_condensed;
@@ -287,7 +293,6 @@ header .fullh {
   float: left;
   width: 20%;
   display: block;
-  color: #999;
   line-height: 25px;
 }
 .typeface .meta>li {
@@ -301,7 +306,7 @@ header .fullh {
   padding-right: 1.2em;
 }
 .typeface .meta h2 {
-  color: #999;
+  color: #808080;
 }
 .typeface .fontlist {
   float: left;
@@ -343,7 +348,7 @@ header .fullh {
 }
 .typeface .fontlist .font .legend {
   font-size: 12px;
-  color: #999;
+  color: #808080;
 }
 .typeface .fontlist .font .legend a {
   border-bottom: none;
@@ -426,7 +431,7 @@ header .fullh {
   vertical-align: top;
 }
 .pagination li a {
-  color: #999;
+  color: #808080;
   border: none;
 }
 .pagination li a:hover {
@@ -434,7 +439,7 @@ header .fullh {
 }
 body>footer p {
   font-size: 1em;
-  color: #999;
+  color: #808080;
   padding: 50px 0;
   text-align: center;
 }

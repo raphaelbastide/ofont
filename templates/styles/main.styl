@@ -20,7 +20,7 @@ unicol = rgba(128, 128, 128, 0.29)
 
 fontcol = #eee
 bgcol = #000
-metacol = yellow
+metacol = lightgray
 
 body
   color fontcol
@@ -37,12 +37,14 @@ body
   color fontcol
   input
     color inherit
+.meta
+  color metacol
 
 // Bright mode
 
 fontcol = #000
 bgcol = #eee
-metacol = #999
+metacol = gray
 
 body.bright
   color fontcol
@@ -59,6 +61,8 @@ body.bright
     color fontcol
     input
       color inherit
+  .meta
+    color metacol
 
 body
   font-family dejavu_sans_condensed
@@ -162,7 +166,6 @@ header
     float left
     width 20%
     display block
-    color metacol
     line-height 25px
     //border-right 1px solid unicol
     &>li

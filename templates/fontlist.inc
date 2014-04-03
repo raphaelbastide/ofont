@@ -18,48 +18,17 @@ foreach($fontlist as $font){
     // Getting the font list using the .ttf file(s)
     $files = glob($archivePath . '*.{ttf}', GLOB_BRACE);
     $len=count($files);
-    echo "<li>Contains ".$len." font(s)</li>";
 
-  // Authors
+// Download URL
 
-    $authors = $font->authors;
-    if ($authors){
-      echo "<li><ul class='authors'>";
-      echo "Designed by:";
-      foreach($authors as $author){
-        echo "<li><a href='{$author->url}'>{$author->title}</a></li>";
-      }
-      echo "</ul></li>";
+  $download_url = $font->download_url;
+  if ($download_url){
+    echo "<li><a href='{$download_url}'>External link</a></li>";
+  }
+
+    if($font->editable()) {
+        echo "<li><a class='nav' id='editpage' href='{$config->urls->admin}page/edit/?id={$font->id}'>Edit</a></li>"; 
     }
-
-
-  // Keywords
-
-    $keywords = $font->keywords;
-    if ($keywords){
-      echo "<li><ul class='keywords'>";
-      echo "Tagged with:";
-      foreach($keywords as $keyword){
-        echo "<li><a href='{$keyword->url}'>{$keyword->title}</a></li>";
-      }
-      echo "</ul></li>";
-    }
-
-  // License
-
-    $license = $font->license;
-    if ($license){
-      echo "<li><ul class='license'>";
-      echo "License:";
-      foreach($license as $license){
-        echo "<li>{$license->title}</li>";
-      }
-      echo "</ul></li>";
-    }
-
-      if($font->editable()) {
-          echo "<li><a class='nav' id='editpage' href='{$config->urls->admin}page/edit/?id={$font->id}'>Edit</a></li>"; 
-      }
 
     echo "</ul>"; // END .meta
     echo "<div class='fontlist'>";
@@ -68,7 +37,7 @@ foreach($fontlist as $font){
     if (isset($_COOKIE['demo-text-1'])) {
       $demotext1 = htmlspecialchars($_COOKIE['demo-text-1'], ENT_QUOTES|ENT_HTML5);
     } else {
-      $demotext1 = "Portez ce vieux whisky au juge blond qui fume.";
+      $demotext1 = "Alice’s real name is Bob.";
     }
 
     if (isset($_COOKIE['demo-text-2'])) {

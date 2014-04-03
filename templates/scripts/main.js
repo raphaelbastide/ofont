@@ -111,7 +111,9 @@
     closeFS();
   });
   $(document).keypress(function() {
-    closeFS();
+    if ( event.which == 27 ) {
+      closeFS();
+    }
   });
 }());
 

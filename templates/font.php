@@ -30,7 +30,7 @@ if (!$page->draft){
   $keywords = $page->keywords;
   if ($keywords){
     echo "<li><ul class='keywords'>";
-    echo "Keywords:";
+    echo "Tagged with:";
     foreach($keywords as $keyword){
       echo "<li><a href='{$keyword->url}'>{$keyword->title}</a></li>";
     }
@@ -68,10 +68,9 @@ if (!$page->draft){
   if ($download_url){
     echo "<li><ul class='download_url'>";
     echo "Download / informations:";
-      echo "<li><a href='{$download_url}'>Font’s page</a></li>";
+      echo "<li><a href='{$download_url}'>External link</a></li>";
     echo "</ul></li>";
   }
-
 
   if($page->editable()) {
       echo "<li><a class='nav' id='editpage' href='{$config->urls->admin}page/edit/?id={$page->id}'>Edit</a></li>"; 
