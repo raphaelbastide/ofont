@@ -1,6 +1,6 @@
-# Use & Modify
+# Ofont
 
-This repository includes the profile of Use & Modify, a typeface collection CMS. You can visit an up to date copy of Use & Modify online: [http://usemodify.com](http://usemodify.com/)
+This repository includes ofont, a CMS for typeface collections. You can visit an up to date copy of ofont in use on: [http://usemodify.com](http://usemodify.com/)
 
 ## Install
 
@@ -8,7 +8,7 @@ This repository includes the profile of Use & Modify, a typeface collection CMS.
 
 2. Before running the installer for the new version of ProcessWire you just downloaded, you will want to replace the site profile that the new version comes with. To do that, replace these directories on the new installation with the same directories (located under /site/) from your current (this) installation:
 
-        /site-default/install/
+        /site-default/install/ (not available yet)
         /site-default/templates/
         /site-default/modules/
 

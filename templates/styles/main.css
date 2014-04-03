@@ -177,6 +177,16 @@ body {
 body.nonotice .notice {
   display: none;
 }
+body .notice p {
+  display: inline;
+}
+body .notice .introbtn {
+  font-size: 0.5em;
+  cursor: pointer;
+  border: 2px solid;
+  padding: 0.1em 0.3em;
+  vertical-align: top;
+}
 .icon {
   font-size: 20px;
 }
