@@ -1,3 +1,79 @@
+body {
+  color: #eee;
+  background: #000;
+}
+body header {
+  background: #000;
+  color: #eee;
+}
+body .views {
+  color: #eee;
+}
+body .font input {
+  color: #eee;
+}
+.fsBox {
+  background: #000;
+  color: #eee;
+}
+.fsBox input {
+  color: inherit;
+}
+.meta {
+  color: #d3d3d3;
+}
+body.bright {
+  color: #000;
+  background: #eee;
+}
+body.bright header {
+  background: #eee;
+  color: #000;
+}
+body.bright .views {
+  color: #000;
+}
+body.bright .font input {
+  color: #000;
+}
+body.bright .fsBox {
+  background: #eee;
+  color: #000;
+}
+body.bright .fsBox input {
+  color: inherit;
+}
+body.bright .meta {
+  color: #808080;
+}
+@font-face {
+  font-family: 'dejavu_sans_condensed';
+  src: url("fonts/dejavusanscondensed-webfont.eot");
+  src: url("fonts/dejavusanscondensed-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/dejavusanscondensed-webfont.woff") format('woff'), url("fonts/dejavusanscondensed-webfont.ttf") format('truetype'), url("fonts/dejavusanscondensed-webfont.svg#dejavu_sans_condensedbook") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'dejavu_sans_condensed';
+  src: url("fonts/dejavusanscondensed-bold-webfont.eot");
+  src: url("fonts/dejavusanscondensed-bold-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/dejavusanscondensed-bold-webfont.woff") format('woff'), url("fonts/dejavusanscondensed-bold-webfont.ttf") format('truetype'), url("fonts/dejavusanscondensed-bold-webfont.svg#dejavu_sans_condensedbold") format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'dejavu_sans_condensed';
+  src: url("fonts/dejavusanscondensed-boldoblique-webfont.eot");
+  src: url("fonts/dejavusanscondensed-boldoblique-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/dejavusanscondensed-boldoblique-webfont.woff") format('woff'), url("fonts/dejavusanscondensed-boldoblique-webfont.ttf") format('truetype'), url("fonts/dejavusanscondensed-boldoblique-webfont.svg#dejavu_sans_condensedbold_oblique") format('svg');
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'dejavu_sans_condensed';
+  src: url("fonts/dejavusanscondensed-oblique-webfont.eot");
+  src: url("fonts/dejavusanscondensed-oblique-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/dejavusanscondensed-oblique-webfont.woff") format('woff'), url("fonts/dejavusanscondensed-oblique-webfont.ttf") format('truetype'), url("fonts/dejavusanscondensed-oblique-webfont.svg#dejavu_sans_condensedoblique") format('svg');
+  font-weight: normal;
+  font-style: italic;
+}
 html,
 body,
 div,
@@ -128,54 +204,6 @@ table {
   box-sizing: border-box;
 }
 body {
-  color: #eee;
-  background: #000;
-}
-body header {
-  background: #000;
-  color: #eee;
-}
-body .views {
-  color: #eee;
-}
-body .font input {
-  color: #eee;
-}
-.fsBox {
-  background: #000;
-  color: #eee;
-}
-.fsBox input {
-  color: inherit;
-}
-.meta {
-  color: #d3d3d3;
-}
-body.bright {
-  color: #000;
-  background: #eee;
-}
-body.bright header {
-  background: #eee;
-  color: #000;
-}
-body.bright .views {
-  color: #000;
-}
-body.bright .font input {
-  color: #000;
-}
-body.bright .fsBox {
-  background: #eee;
-  color: #000;
-}
-body.bright .fsBox input {
-  color: inherit;
-}
-body.bright .meta {
-  color: #808080;
-}
-body {
   font-family: dejavu_sans_condensed;
   font-size: 15px;
   line-height: 20px;
@@ -224,15 +252,13 @@ header .topnav {
   height: 100%;
   width: 20%;
 }
-header .topnav a {
-  text-decoration: none;
-  height: 100%;
+header .topnav a.logo {
   display: block;
   border: none;
-}
-header .topnav a .icon-logo {
-  font-size: 30px;
   padding-top: 1em;
+}
+header .topnav a.logo .icon-logo {
+  font-size: 30px;
   padding-left: 0;
 }
 header #search_form {
@@ -437,11 +463,14 @@ header .fullh {
 .pagination li a:hover {
   color: rgba(128,128,128,0.29);
 }
+body>footer {
+  padding: 50px 0;
+}
 body>footer p {
   font-size: 1em;
   color: #808080;
-  padding: 50px 0;
   text-align: center;
+  margin: 0 0 10px 0;
 }
 a {
   color: inherit;
@@ -475,32 +504,4 @@ input[type="button"]::-moz-focus-inner {
     padding-right: 10px;
     padding-left: 10px;
   }
-}
-@font-face {
-  font-family: 'dejavu_sans_condensed';
-  src: url("fonts/dejavusanscondensed-webfont.eot");
-  src: url("fonts/dejavusanscondensed-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/dejavusanscondensed-webfont.woff") format('woff'), url("fonts/dejavusanscondensed-webfont.ttf") format('truetype'), url("fonts/dejavusanscondensed-webfont.svg#dejavu_sans_condensedbook") format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'dejavu_sans_condensed';
-  src: url("fonts/dejavusanscondensed-bold-webfont.eot");
-  src: url("fonts/dejavusanscondensed-bold-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/dejavusanscondensed-bold-webfont.woff") format('woff'), url("fonts/dejavusanscondensed-bold-webfont.ttf") format('truetype'), url("fonts/dejavusanscondensed-bold-webfont.svg#dejavu_sans_condensedbold") format('svg');
-  font-weight: bold;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'dejavu_sans_condensed';
-  src: url("fonts/dejavusanscondensed-boldoblique-webfont.eot");
-  src: url("fonts/dejavusanscondensed-boldoblique-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/dejavusanscondensed-boldoblique-webfont.woff") format('woff'), url("fonts/dejavusanscondensed-boldoblique-webfont.ttf") format('truetype'), url("fonts/dejavusanscondensed-boldoblique-webfont.svg#dejavu_sans_condensedbold_oblique") format('svg');
-  font-weight: bold;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'dejavu_sans_condensed';
-  src: url("fonts/dejavusanscondensed-oblique-webfont.eot");
-  src: url("fonts/dejavusanscondensed-oblique-webfont.eot?#iefix") format('embedded-opentype'), url("fonts/dejavusanscondensed-oblique-webfont.woff") format('woff'), url("fonts/dejavusanscondensed-oblique-webfont.ttf") format('truetype'), url("fonts/dejavusanscondensed-oblique-webfont.svg#dejavu_sans_condensedoblique") format('svg');
-  font-weight: normal;
-  font-style: italic;
 }

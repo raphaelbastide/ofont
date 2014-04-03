@@ -14,7 +14,7 @@
 <body>
 	<header>
 		<div class='topnav'>
-          <a title="Use & Modify" href="<?php echo $config->urls->root?>">
+          <a class="logo" title="Use & Modify" href="<?php echo $config->urls->root?>">
             <span class="icon fullh icon-logo"></span>
           </a>
         </div>
