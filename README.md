@@ -8,7 +8,7 @@ This repository includes ofont, a CMS for typeface collections. You can visit an
 
 2. Before running the installer for the new version of ProcessWire you just downloaded, you will want to replace the site profile that the new version comes with. To do that, replace these directories on the new installation with the same directories (located under /site/) from your current (this) installation:
 
-        /site-default/install/ (not available yet)
+        /site-default/install/
         /site-default/templates/
         /site-default/modules/
 
