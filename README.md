@@ -14,7 +14,9 @@ This repository includes ofont, a CMS for typeface collections. You can visit an
 
 3. If you will be installing on the same server you are on now, create a new MySQL database for the new installation. You don't want to use the same database that the current site is using.
 
-4. After you've completed the steps above, run the installer for the new site by loading it in your browser and installing as you would any other new copy of ProcessWire. It will install with the site profile you created rather than the one that it comes with.
+4. Replace the database configuration in `config-example.php` with your own configuration, then rename the file to `config.php`
+
+5. After you've completed the steps above, run the installer for the new site by loading it in your browser and installing as you would any other new copy of ProcessWire. It will install with the site profile you created rather than the one that it comes with.
 
 ## When Finished
 
