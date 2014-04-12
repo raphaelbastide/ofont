@@ -1,6 +1,6 @@
 # Ofont
 
-<p align="center"><img width="200" height="90" alt="ofont logo" src="https://raw.githubusercontent.com/raphaelbastide/ofont/master/templates/styles/images/ofont.svg"></p>
+<p align="center"><img width="200" height="90" alt="ofont logo" src="https://rawgithub.com/raphaelbastide/ofont/master/templates/styles/images/ofont.svg"></p>
 
 This repository includes ofont, a CMS for typeface collections. You can visit an up to date copy of ofont in use on: [http://usemodify.com](http://usemodify.com/)
 
