@@ -110,10 +110,11 @@
   $(document).on('click', '.close-fullscreen' , function() {
     closeFS();
   });
-  $(document).keypress(function() {
-    if ( event.which == 27 ) {
+  $('.fullscreen').bind('keypress', function(e) {
+    var code = e.keyCode || e.which;
+    if ( code == 27 ) {
       closeFS();
-    }
+    }    
   });
 }());
 
