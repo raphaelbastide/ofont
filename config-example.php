@@ -16,6 +16,12 @@
 if(!defined("PROCESSWIRE")) die();
 
 /**
+ * Name: The name of your site
+ *
+ */
+$config->sitename= 'ofont';
+
+/**
  * Timezone: current timezone using PHP timeline options
  *
  * To change, see timezone list at: http://php.net/manual/en/timezones.php
