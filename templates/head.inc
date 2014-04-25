@@ -5,16 +5,16 @@
 <html lang="en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title><?php echo $page->get("headline|title"); ?></title>
+	<title><?php echo $page->get("headline|title"); ?> - <?php echo $config->sitename; ?></title>
 	<meta name="description" content="<?php echo $page->summary; ?>" />
 	<meta name="generator" content="ProcessWire <?php echo $config->version; ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>styles/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>styles/icons.css" />
 </head>
-<body>
+<body class="<?php echo $sanitizer->pagename($config->sitename); ?>">
 	<header>
 		<div class='topnav'>
-          <a class="logo" title="<?php echo $page->get("headline|title"); ?>" href="<?php echo $config->urls->root?>">
+          <a class="logo" title="<?php echo $config->version; ?>" href="<?php echo $config->urls->root?>">
             <span class="icon fullh icon-logo"></span>
           </a>
         </div>
