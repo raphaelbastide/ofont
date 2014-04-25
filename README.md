@@ -1,4 +1,4 @@
-# Ofont
+# ofont
 
 <p align="center"><img width="200" height="90" alt="ofont logo" src="https://rawgithub.com/raphaelbastide/ofont/master/templates/styles/images/ofont.svg"></p>
 

@@ -1,6 +1,6 @@
 @import 'fonts.styl'
 @import 'utils.styl'
-@import 'icons.styl'
+@import 'icons.css'
 @import 'colormodes.styl'
 
 m = 50px
@@ -56,7 +56,7 @@ header
       border none
       padding-top 1em
       .icon-logo
-        font-size 30px
+        font-size 32px
         padding-left 0
   #search_form
     height 100%
@@ -86,6 +86,8 @@ header
     vertical-align middle
     padding-left 30px
     padding-right 30px
+    &[type=range]
+      padding 0
 .content
   padding-top 80px
   h1
@@ -178,7 +180,20 @@ header
   &.bright
     .font:after
       background linear-gradient(to right, rgba(238, 238, 238, 0) 0%,#eee 100%)
-  
+
+// Page template
+
+.page-content
+  padding m m
+  max-width 800px
+  width 100%
+  background yellow
+  color black
+  p
+    font-size 1.5em
+    line-height 1.3em
+    margin-bottom m
+
 // FullScreen Box
 
 .fsBox

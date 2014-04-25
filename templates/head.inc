@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title> Use & Modify - <?php echo $page->get("headline|title"); ?></title>
+	<title><?php echo $page->get("headline|title"); ?></title>
 	<meta name="description" content="<?php echo $page->summary; ?>" />
 	<meta name="generator" content="ProcessWire <?php echo $config->version; ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>styles/main.css" />
@@ -14,7 +14,7 @@
 <body>
 	<header>
 		<div class='topnav'>
-          <a class="logo" title="Use & Modify" href="<?php echo $config->urls->root?>">
+          <a class="logo" title="<?php echo $page->get("headline|title"); ?>" href="<?php echo $config->urls->root?>">
             <span class="icon fullh icon-logo"></span>
           </a>
         </div>

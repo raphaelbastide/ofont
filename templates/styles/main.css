@@ -1,51 +1,3 @@
-body {
-  color: #eee;
-  background: #000;
-}
-body header {
-  background: #000;
-  color: #eee;
-}
-body .views {
-  color: #eee;
-}
-body .font input {
-  color: #eee;
-}
-.fsBox {
-  background: #000;
-  color: #eee;
-}
-.fsBox input {
-  color: inherit;
-}
-.meta {
-  color: #d3d3d3;
-}
-body.bright {
-  color: #000;
-  background: #eee;
-}
-body.bright header {
-  background: #eee;
-  color: #000;
-}
-body.bright .views {
-  color: #000;
-}
-body.bright .font input {
-  color: #000;
-}
-body.bright .fsBox {
-  background: #eee;
-  color: #000;
-}
-body.bright .fsBox input {
-  color: inherit;
-}
-body.bright .meta {
-  color: #808080;
-}
 @font-face {
   font-family: 'dejavu_sans_condensed';
   src: url("fonts/dejavusanscondensed-webfont.eot");
@@ -203,6 +155,55 @@ table {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+@import 'icons.css';
+body {
+  color: #eee;
+  background: #000;
+}
+body header {
+  background: #000;
+  color: #eee;
+}
+body .views {
+  color: #eee;
+}
+body .font input {
+  color: #eee;
+}
+.fsBox {
+  background: #000;
+  color: #eee;
+}
+.fsBox input {
+  color: inherit;
+}
+.meta {
+  color: #d3d3d3;
+}
+body.bright {
+  color: #000;
+  background: #eee;
+}
+body.bright header {
+  background: #eee;
+  color: #000;
+}
+body.bright .views {
+  color: #000;
+}
+body.bright .font input {
+  color: #000;
+}
+body.bright .fsBox {
+  background: #eee;
+  color: #000;
+}
+body.bright .fsBox input {
+  color: inherit;
+}
+body.bright .meta {
+  color: #808080;
+}
 body {
   font-family: dejavu_sans_condensed;
   font-size: 15px;
@@ -258,7 +259,7 @@ header .topnav a.logo {
   padding-top: 1em;
 }
 header .topnav a.logo .icon-logo {
-  font-size: 30px;
+  font-size: 32px;
   padding-left: 0;
 }
 header #search_form {
@@ -295,6 +296,9 @@ header .fullh {
   vertical-align: middle;
   padding-left: 30px;
   padding-right: 30px;
+}
+header .fullh[type=range] {
+  padding: 0;
 }
 .content {
   padding-top: 80px;
@@ -408,6 +412,18 @@ header .fullh {
 }
 .gridview.bright .font:after {
   background: linear-gradient(to right, rgba(238,238,238,0) 0%, #eee 100%);
+}
+.page-content {
+  padding: 50px 50px;
+  max-width: 800px;
+  width: 100%;
+  background: #ff0;
+  color: #000;
+}
+.page-content p {
+  font-size: 1.5em;
+  line-height: 1.3em;
+  margin-bottom: 50px;
 }
 .fsBox {
   width: 100%;

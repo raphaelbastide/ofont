@@ -1,8 +1,7 @@
 
 	</div><!--/content-->
 	<footer>
-      <p>A project by <a href="http://raphaelbastide.com/">Raphaël Bastide</a></p>
-      <p>This project is based on <a href="https://github.com/raphaelbastide/ofont">ofont</a> and <a href="http://processwire.com/">Processwire</a>.</p>
+      <p><a class="logo" title="Ofont" href="<?php echo $config->urls->root?>/about">About</a>
 	</footer>
 
   <script src="<?php echo $config->urls->templates?>scripts/jquery.js"></script>
