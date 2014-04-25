@@ -1,7 +1,7 @@
 
 	</div><!--/content-->
 	<footer>
-      <p><a class="logo" title="Ofont" href="<?php echo $config->urls->root?>/about">About</a>
+      <p><a href="<?php echo $config->urls->root?>about">About</a>
 	</footer>
 
   <script src="<?php echo $config->urls->templates?>scripts/jquery.js"></script>
