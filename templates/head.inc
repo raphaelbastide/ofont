@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>styles/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>styles/icons.css" />
 </head>
-<body class="<?php echo $sanitizer->pagename($config->sitename); ?>">
+<body class="<?php echo $sanitizer->pagename($config->sitename); ?> <?php echo $sanitizer->pagename($page->get("headline|title")); ?>">
 	<header>
 		<div class='topnav'>
           <a class="logo" title="<?php echo $config->version; ?>" href="<?php echo $config->urls->root?>">

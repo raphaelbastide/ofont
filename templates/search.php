@@ -13,12 +13,13 @@ if($q = $sanitizer->selectorValue($input->get->q)) {
 	$count = count($matches);
 	if($count) {
 		$outMain .= "<h1>Search results</h1>
+        <div class='page-content'>
 		<p><strong>Found $count results matching your query:</strong></p>" .
 			"<ul class=\"nb\">";
 		foreach($matches as $m) {
           $outMain .= "<p><a href='".$m->url."'>".$m->title."</a></p>";
 		}
-		$outMain .= "</ul>";
+		$outMain .= "</ul></div>";
 	} else {
 		$outMain .= "<h1>Sorry, no results were found.</h1>";
 	}

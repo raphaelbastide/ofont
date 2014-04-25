@@ -417,13 +417,15 @@ header .fullh[type=range] {
   padding: 50px 50px;
   max-width: 800px;
   width: 100%;
-  background: #ff0;
-  color: #000;
 }
 .page-content p {
   font-size: 1.5em;
   line-height: 1.3em;
   margin-bottom: 50px;
+}
+body.about .page-content {
+  background: #ff0;
+  color: #000;
 }
 .fsBox {
   width: 100%;
