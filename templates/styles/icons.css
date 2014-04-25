@@ -24,11 +24,14 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+body.ofont .icon-logo:before {
+	content: "\e608";
+}
+body.use---modify .icon-logo:before {
+	content: "\e600";
+}
 .icon-size:before {
 	content: "\e607";
-}
-.icon-logo:before {
-	content: "\e608";
 }
 .icon-edit:before {
 	content: "\e601";
