@@ -4,7 +4,22 @@
 
 This repository includes ofont, a CMS for typeface collections. You can visit an up to date copy of ofont in use on: [http://usemodify.com](http://usemodify.com/)
 
+## Features
+
+- Tags, authors, licenses, related fonts field and more.
+- Extendable fields for your custom classification (text, image, PDF…)
+- Upload webfont archive from [Fontsquirrel generator](http://www.fontsquirrel.com/tools/webfont-generator)
+- Live text preview
+- URL param for text preview: [demo](http://usemodify.com/?t=Look%20at%20the%20URL!)
+- Font size slider
+- Light / dark mode toggle
+- Large / grid view for text preview
+- Fullscreen preview mode
+- Search form
+
 ## Install
+
+Ofont is based on ProcessWire, those information will help you te install it.
 
 1. Download the latest version of [ProcessWire](http://processwire.com/) to another location (whether another site or another directory on this server). If you downloaded it as an archive, then unzip it too.
 
