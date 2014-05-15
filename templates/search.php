@@ -9,7 +9,7 @@ $outMain = '';
 
 if($q = $sanitizer->selectorValue($input->get->q)) {
 	$input->whitelist('q', $q);
-	$matches = $pages->find("title|body|~=$q, limit=50");
+	$matches = $pages->find("title|body|%=$q, limit=50");
 	$count = count($matches);
 	if($count) {
 		$outMain .= "<h1>Search results</h1>
