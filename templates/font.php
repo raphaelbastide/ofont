@@ -83,7 +83,7 @@ if (!$page->draft){
   if (isset($_COOKIE['demo-text-1'])) {
     $demotext1 = htmlspecialchars($_COOKIE['demo-text-1'], ENT_QUOTES|ENT_HTML5);
   } else {
-    $demotext1 = "Portez ce vieux whisky au juge blond qui fume.";
+    $demotext1 = "Alice’s real name is Bob.";
   }
 
   if (isset($_COOKIE['demo-text-2'])) {
