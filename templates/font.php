@@ -67,7 +67,7 @@ if (!$page->draft){
   $download_url = $page->download_url;
   if ($download_url){
     echo "<li><ul class='download_url'>";
-    echo "Download / informations:";
+    echo "Download and information:";
       echo "<li><a href='{$download_url}'>External link</a></li>";
     echo "</ul></li>";
   }
