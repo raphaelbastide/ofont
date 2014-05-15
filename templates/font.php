@@ -79,8 +79,11 @@ if (!$page->draft){
   echo "</ul>"; // END .meta
   echo "<div class='fontlist'>";
 
-
-  if (isset($_COOKIE['demo-text-1'])) {
+  $test_string = $_GET["t"];
+  // This allow URL to contain a custom test string
+  if (isset ($test_string)){
+    $demotext1 = $test_string;
+  } else if (isset($_COOKIE['demo-text-1'])) {
     $demotext1 = htmlspecialchars($_COOKIE['demo-text-1'], ENT_QUOTES|ENT_HTML5);
   } else {
     $demotext1 = "Alice’s real name is Bob.";
