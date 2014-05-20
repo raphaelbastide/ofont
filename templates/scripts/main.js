@@ -116,5 +116,15 @@
       closeFS();
     }    
   });
+  
+  // Font name cleaning
+  
+  var fontNames = $('.legend a');
+  fontNames.each(function(){
+    $(this).html($(this).html().replace(/_/g, " ")
+                              .replace(/-/g, " ")
+                              .replace(/webfont/g, ""));
+  })
+  
 }());
 
