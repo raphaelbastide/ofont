@@ -39,6 +39,10 @@ Ofont is based on ProcessWire, those information will help you te install it.
 
 It's not good to leave your exported profile lying around as it may be consuming quite a bit of disk space. As a result, I recommend that you remove the profile when done with all of the above steps.
 
+## Customise
+
+Ofont uses [Stylus](http://learnboost.github.io/stylus/) for CSS compiling, and [Fontello](http://fontello.com/) to generate icon font.
+
 ## License
 
 This website profile is under [MIT License](http://raphael.mit-license.org/).
