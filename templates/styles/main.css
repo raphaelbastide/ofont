@@ -258,7 +258,7 @@ header .topnav a.logo {
   border: none;
   padding-top: 1em;
 }
-header .topnav a.logo .icon-logo {
+header .topnav a.logo .icon {
   font-size: 32px;
   padding-left: 0;
 }

@@ -9,13 +9,13 @@
 	<meta name="description" content="<?php echo $page->summary; ?>" />
 	<meta name="generator" content="ProcessWire <?php echo $config->version; ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>styles/main.css" />
-	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>styles/icons.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>styles/fontello/css/ofont.css" />
 </head>
 <body class="<?php echo $sanitizer->pagename($config->sitename); ?> <?php echo $sanitizer->pagename($page->get("headline|title")); ?>">
 	<header>
 		<div class='topnav'>
           <a class="logo" title="<?php echo $config->version; ?>" href="<?php echo $config->urls->root?>">
-            <span class="icon fullh icon-logo"></span>
+            <span class="icon fullh icon-<?php echo $sanitizer->pagename($config->sitename); ?>"></span>
           </a>
         </div>
 		<form id='search_form' action='<?php echo $config->urls->root?>search/' method='get'>
