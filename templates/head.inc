@@ -10,6 +10,7 @@
 	<meta name="generator" content="ProcessWire <?php echo $config->version; ?>" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>styles/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $config->urls->templates?>styles/fontello/css/ofont.css" />
+  <link href="<?php echo $config->urls->templates?>styles/images/favicon-<?php echo $sanitizer->pagename($config->sitename)?>.gif" rel="shortcut icon" type="image/x-icon">
 </head>
 <body class="<?php echo $sanitizer->pagename($config->sitename); ?> <?php echo $sanitizer->pagename($page->get("headline|title")); ?>">
 	<header>
