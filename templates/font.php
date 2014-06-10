@@ -10,7 +10,17 @@ if (!$page->draft){
   // Getting the font list using the .ttf file(s)
   $files = glob($archivePath . '*.{ttf}', GLOB_BRACE);
   $len=count($files);
-  echo "<li>Containing ".$len." font(s)</li>";
+  echo "<li>Contains ".$len." font(s)</li>";
+
+// Download URL
+
+  $download_url = $page->download_url;
+  if ($download_url){
+    echo "<li><ul class='download_url'>";
+    echo "Download and information:";
+      echo "<li><a href='{$download_url}'>External link</a></li>";
+    echo "</ul></li>";
+  }
 
 // Authors
 
@@ -62,16 +72,6 @@ if (!$page->draft){
     echo "</ul></li>";
   }
 
-// Download URL
-
-  $download_url = $page->download_url;
-  if ($download_url){
-    echo "<li><ul class='download_url'>";
-    echo "Download and information:";
-      echo "<li><a href='{$download_url}'>External link</a></li>";
-    echo "</ul></li>";
-  }
-
   if($page->editable()) {
       echo "<li><a class='nav' id='editpage' href='{$config->urls->admin}page/edit/?id={$page->id}'>Edit</a></li>"; 
   }
@@ -86,13 +86,13 @@ if (!$page->draft){
   } else if (isset($_COOKIE['demo-text-1'])) {
     $demotext1 = htmlspecialchars($_COOKIE['demo-text-1'], ENT_QUOTES|ENT_HTML5);
   } else {
-    $demotext1 = "Alice’s real name is Bob.";
+    $demotext1 = $config->demotext;
   }
 
   if (isset($_COOKIE['demo-text-2'])) {
     $demotext2 = htmlspecialchars($_COOKIE['demo-text-2'], ENT_QUOTES|ENT_HTML5);
   } else {
-    $demotext2 = "O verdadeiro sábio é aquele que assim se dispõe que os acontecimentos exteriores o alterem minimamente. Para isso precisa couraçar-se cercando-se de realidades mais próximas de si do que os fatos, e através das quais os fatos, alterados para de acordo com elas, lhe chegam. Fernando Pessoa";
+    $demotext2 = "abcdefghijklmnopqrstuvwxyz.:;, ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890 @ &!?#$€%";
   }
 
   for ($i = 0; $i < $len; $i++) {
@@ -114,8 +114,8 @@ if (!$page->draft){
     font-style: normal;
 }";
     echo "</style>";
-      echo "<p class='fontdemo1' style='font-family:\"{$fontname}\";'><input type=text value='$demotext1'></p>";
-      echo "<p class='fontdemo2' style='font-family:\"{$fontname}\";'><input type=text value='$demotext2'></p>";
+      echo "<p class='fontdemo1' style='font-family:\"{$fontname}\";'><input type=text spellcheck='false' value='$demotext1'></p>";
+      echo "<p class='fontdemo2' style='font-family:\"{$fontname}\";'><input type=text spellcheck='false' value='$demotext2'></p>";
       echo "<p class='legend'><button title='Fullscreen view' class='icon fullscreen icon-fullscreen'></button><a href='{$font->url}'>{$fontname}</a></p>";
       echo "</div>"; // END .font
     }

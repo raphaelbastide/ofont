@@ -22,6 +22,12 @@ if(!defined("PROCESSWIRE")) die();
 $config->sitename= 'ofont';
 
 /**
+ * Demo text: Default demo text for font preview
+ *
+ */
+$config->demotext= 'Few lazy Qbit juice experts make dog haven';
+
+/**
  * Timezone: current timezone using PHP timeline options
  *
  * To change, see timezone list at: http://php.net/manual/en/timezones.php

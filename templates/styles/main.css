@@ -374,7 +374,9 @@ header .fullh[type=range] {
   font-family: inherit;
 }
 .typeface .fontlist .font .fontdemo2 input {
-  display: none;
+  font-size: 30px;
+  white-space: nowrap;
+  font-family: inherit;
 }
 .typeface .fontlist .font .legend {
   font-size: 12px;
