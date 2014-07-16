@@ -182,7 +182,7 @@ body .font input {
 }
 body.bright {
   color: #000;
-  background: #eee;
+  background: white;
 }
 body.bright header {
   background: #eee;
