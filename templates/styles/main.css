@@ -182,10 +182,10 @@ body .font input {
 }
 body.bright {
   color: #000;
-  background: white;
+  background: #fff;
 }
 body.bright header {
-  background: #eee;
+  background: #fff;
   color: #000;
 }
 body.bright .views {
@@ -195,7 +195,7 @@ body.bright .font input {
   color: #000;
 }
 body.bright .fsBox {
-  background: #eee;
+  background: #fff;
   color: #000;
 }
 body.bright .fsBox input {
@@ -510,11 +510,11 @@ input[type="button"]::-moz-focus-inner {
 }
 ::selection {
   background: #000;
-  color: #eee;
+  color: #fff;
 }
 ::-moz-selection {
   background: #000;
-  color: #eee;
+  color: #fff;
 }
 @media (max-width: 1200px) {
   header {
