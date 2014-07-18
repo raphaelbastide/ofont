@@ -1,4 +1,21 @@
 
+DROP TABLE IF EXISTS `field_author_url`;
+CREATE TABLE `field_author_url` (
+  `pages_id` int(10) unsigned NOT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY (`pages_id`),
+  KEY `data_exact` (`data`(255)),
+  FULLTEXT KEY `data` (`data`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `field_author_url` (pages_id, data) VALUES('1115', 'http://www.cataloged.cc/');
+INSERT INTO `field_author_url` (pages_id, data) VALUES('1129', 'http://antoine-gelgon.fr/');
+INSERT INTO `field_author_url` (pages_id, data) VALUES('1116', 'http://cataloged.cc/');
+INSERT INTO `field_author_url` (pages_id, data) VALUES('1117', 'http://osp.constantvzw.org/');
+INSERT INTO `field_author_url` (pages_id, data) VALUES('1118', 'http://osp.constantvzw.org/');
+INSERT INTO `field_author_url` (pages_id, data) VALUES('1122', 'http://etienneozeray.fr');
+INSERT INTO `field_author_url` (pages_id, data) VALUES('1123', 'http://xamaru.tumblr.com/');
+
 DROP TABLE IF EXISTS `field_authors`;
 CREATE TABLE `field_authors` (
   `pages_id` int(10) unsigned NOT NULL,
@@ -12,6 +29,9 @@ INSERT INTO `field_authors` (pages_id, data, sort) VALUES('1114', '1115', '0');
 INSERT INTO `field_authors` (pages_id, data, sort) VALUES('1114', '1116', '1');
 INSERT INTO `field_authors` (pages_id, data, sort) VALUES('1114', '1117', '2');
 INSERT INTO `field_authors` (pages_id, data, sort) VALUES('1114', '1118', '3');
+INSERT INTO `field_authors` (pages_id, data, sort) VALUES('1121', '1122', '0');
+INSERT INTO `field_authors` (pages_id, data, sort) VALUES('1121', '1123', '1');
+INSERT INTO `field_authors` (pages_id, data, sort) VALUES('1128', '1129', '0');
 
 DROP TABLE IF EXISTS `field_body`;
 CREATE TABLE `field_body` (
@@ -35,6 +55,8 @@ CREATE TABLE `field_comments` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `field_comments` (pages_id, data) VALUES('1114', 'Designed for [http://www.esad-gv.fr](http://www.esad-gv.fr).\r\n\r\nInspired by characters found on cartography from XIX untill middle XX.');
+INSERT INTO `field_comments` (pages_id, data) VALUES('1121', 'Generated font made with PureData and Php based on  [Terminus](http://terminus-font.sourceforge.net/).');
+INSERT INTO `field_comments` (pages_id, data) VALUES('1128', 'Autopia is a free family Typeface designed by Antoine Gelgon. This project was initiated during the Summer School of OSP in August 2013. The particularity of this fonts is in the process of developing its shape. The skeleton was generated through Autotrace Program (a program that converts bitmap to vectorgraphics). Calligraphic forms were drawn with Python Fontforge’s code.');
 
 DROP TABLE IF EXISTS `field_download_url`;
 CREATE TABLE `field_download_url` (
@@ -46,6 +68,8 @@ CREATE TABLE `field_download_url` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `field_download_url` (pages_id, data) VALUES('1114', 'https://github.com/no-feature/dauphine');
+INSERT INTO `field_download_url` (pages_id, data) VALUES('1121', 'http://etienneozeray.fr/nikelapolice.php');
+INSERT INTO `field_download_url` (pages_id, data) VALUES('1128', 'http://autopia-type.tumblr.com/');
 
 DROP TABLE IF EXISTS `field_draft`;
 CREATE TABLE `field_draft` (
@@ -55,6 +79,42 @@ CREATE TABLE `field_draft` (
   KEY `data` (`data`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+
+DROP TABLE IF EXISTS `field_headline`;
+CREATE TABLE `field_headline` (
+  `pages_id` int(10) unsigned NOT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY (`pages_id`),
+  FULLTEXT KEY `data` (`data`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `field_headline` (pages_id, data) VALUES('1', 'Basic Example Site');
+INSERT INTO `field_headline` (pages_id, data) VALUES('1001', 'About Us');
+INSERT INTO `field_headline` (pages_id, data) VALUES('1003', 'Developing Site Templates');
+
+DROP TABLE IF EXISTS `field_images`;
+CREATE TABLE `field_images` (
+  `pages_id` int(10) unsigned NOT NULL,
+  `data` varchar(255) NOT NULL,
+  `sort` int(10) unsigned NOT NULL,
+  `description` text NOT NULL,
+  `modified` datetime DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`pages_id`,`sort`),
+  KEY `data` (`data`),
+  KEY `modified` (`modified`),
+  KEY `created` (`created`),
+  FULLTEXT KEY `description` (`description`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `field_images` (pages_id, data, sort, description, modified, created) VALUES('1', 'westin_interior2.jpg', '7', 'Westin Peachtree Atlanta hotel lobby area.', '2014-07-15 16:06:43', '2014-07-15 16:06:43');
+INSERT INTO `field_images` (pages_id, data, sort, description, modified, created) VALUES('1', 'marquis_interior7b.jpg', '5', 'Elevator at the Atlanta Marriott Marquis hotel.', '2014-07-15 16:06:43', '2014-07-15 16:06:43');
+INSERT INTO `field_images` (pages_id, data, sort, description, modified, created) VALUES('1', 'marquis_interior13b_med.jpg', '6', 'Atrium at the Atlanta Marriott Marquis hotel.', '2014-07-15 16:06:43', '2014-07-15 16:06:43');
+INSERT INTO `field_images` (pages_id, data, sort, description, modified, created) VALUES('1', 'marquis_interior3.jpg', '4', 'Elevator core at the Atlanta Marriott Marquis hotel.', '2014-07-15 16:06:43', '2014-07-15 16:06:43');
+INSERT INTO `field_images` (pages_id, data, sort, description, modified, created) VALUES('1', 'hyatt_interior11.jpg', '3', 'Looking up from the lobby area at the Atlanta Hyatt hotel.', '2014-07-15 16:06:43', '2014-07-15 16:06:43');
+INSERT INTO `field_images` (pages_id, data, sort, description, modified, created) VALUES('1', 'hyatt2.jpg', '2', 'Detail from Atlanta Hyatt Hotel.', '2014-07-15 16:06:43', '2014-07-15 16:06:43');
+INSERT INTO `field_images` (pages_id, data, sort, description, modified, created) VALUES('1', 'hyatt_interior9.jpg', '1', 'Detail from Atlanta Hyatt Hotel.', '2014-07-15 16:06:43', '2014-07-15 16:06:43');
+INSERT INTO `field_images` (pages_id, data, sort, description, modified, created) VALUES('1', 'westin_interior1.jpg', '0', 'Westin Peachtree Atlanta hotel lobby area.', '2014-07-15 16:06:43', '2014-07-15 16:06:43');
 
 DROP TABLE IF EXISTS `field_keywords`;
 CREATE TABLE `field_keywords` (
@@ -66,6 +126,12 @@ CREATE TABLE `field_keywords` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `field_keywords` (pages_id, data, sort) VALUES('1114', '1119', '0');
+INSERT INTO `field_keywords` (pages_id, data, sort) VALUES('1121', '1124', '1');
+INSERT INTO `field_keywords` (pages_id, data, sort) VALUES('1121', '1126', '0');
+INSERT INTO `field_keywords` (pages_id, data, sort) VALUES('1128', '1126', '1');
+INSERT INTO `field_keywords` (pages_id, data, sort) VALUES('1121', '1127', '2');
+INSERT INTO `field_keywords` (pages_id, data, sort) VALUES('1128', '1130', '2');
+INSERT INTO `field_keywords` (pages_id, data, sort) VALUES('1128', '1131', '0');
 
 DROP TABLE IF EXISTS `field_license`;
 CREATE TABLE `field_license` (
@@ -77,6 +143,8 @@ CREATE TABLE `field_license` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `field_license` (pages_id, data, sort) VALUES('1114', '1120', '0');
+INSERT INTO `field_license` (pages_id, data, sort) VALUES('1121', '1120', '0');
+INSERT INTO `field_license` (pages_id, data, sort) VALUES('1128', '1120', '0');
 
 INSERT INTO `field_process` (pages_id, data) VALUES('6', '17') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
 INSERT INTO `field_process` (pages_id, data) VALUES('3', '12') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
@@ -109,6 +177,33 @@ CREATE TABLE `field_related_fonts` (
   KEY `data` (`data`,`pages_id`,`sort`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+INSERT INTO `field_related_fonts` (pages_id, data, sort) VALUES('1121', '1125', '0');
+
+DROP TABLE IF EXISTS `field_sidebar`;
+CREATE TABLE `field_sidebar` (
+  `pages_id` int(10) unsigned NOT NULL,
+  `data` mediumtext NOT NULL,
+  PRIMARY KEY (`pages_id`),
+  FULLTEXT KEY `data` (`data`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `field_sidebar` (pages_id, data) VALUES('1', '<h3>About ProcessWire</h3><p>ProcessWire is an open source CMS and web application framework aimed at the needs of designers, developers and their clients. </p><p><a href=\"http://processwire.com/about/\" target=\"_blank\">About ProcessWire</a><br /><a href=\"http://processwire.com/api/\">Developer API</a><br /><a href=\"http://processwire.com/contact/\">Contact Us</a><br /><a href=\"http://twitter.com/rc_d\">Follow Us on Twitter</a></p>');
+INSERT INTO `field_sidebar` (pages_id, data) VALUES('1002', '<h3>Sudo nullus</h3><p>Et torqueo vulpes vereor luctus augue quod consectetuer antehabeo causa patria tation ex plaga ut. Abluo delenit wisi iriure eros feugiat probo nisl aliquip nisl, patria. Antehabeo esse camur nisl modo utinam. Sudo nullus ventosus ibidem facilisis saepius eum sino pneum, vicis odio voco opto.</p>');
+
+DROP TABLE IF EXISTS `field_summary`;
+CREATE TABLE `field_summary` (
+  `pages_id` int(10) unsigned NOT NULL,
+  `data` mediumtext NOT NULL,
+  PRIMARY KEY (`pages_id`),
+  FULLTEXT KEY `data` (`data`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `field_summary` (pages_id, data) VALUES('1002', 'Dolore ea valde refero feugait utinam luctus. Probo velit commoveo et, delenit praesent, suscipit zelus, hendrerit zelus illum facilisi, regula. ');
+INSERT INTO `field_summary` (pages_id, data) VALUES('1001', 'This is a placeholder page with two child pages to serve as an example. ');
+INSERT INTO `field_summary` (pages_id, data) VALUES('1005', 'View this template\'s source for a demonstration of how to create a basic site map. ');
+INSERT INTO `field_summary` (pages_id, data) VALUES('1003', 'More about the templates included in this basic site profile. ');
+INSERT INTO `field_summary` (pages_id, data) VALUES('1004', 'Mos erat reprobo in praesent, mara premo, obruo iustum pecus velit lobortis te sagaciter populus.');
+INSERT INTO `field_summary` (pages_id, data) VALUES('1', 'ProcessWire is an open source CMS and web application framework aimed at the needs of designers, developers and their clients. ');
 
 INSERT INTO `field_title` (pages_id, data) VALUES('1', 'Home') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
 INSERT INTO `field_title` (pages_id, data) VALUES('1000', 'Search') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
@@ -125,6 +220,28 @@ INSERT INTO `field_title` (pages_id, data) VALUES('1114', 'Dauphine') ON DUPLICA
 INSERT INTO `field_title` (pages_id, data) VALUES('1115', 'Charles Mazé') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
 INSERT INTO `field_title` (pages_id, data) VALUES('1116', 'Coline Sunier') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
 INSERT INTO `field_title` (pages_id, data) VALUES('1113', 'Export Site Profile') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+INSERT INTO `field_title` (pages_id, data) VALUES('1121', 'NikLaPolice') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+INSERT INTO `field_title` (pages_id, data) VALUES('1122', 'Étienne Ozeray') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+INSERT INTO `field_title` (pages_id, data) VALUES('1123', 'Lucas Lejeune') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+INSERT INTO `field_title` (pages_id, data) VALUES('1124', 'glitch') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+INSERT INTO `field_title` (pages_id, data) VALUES('1125', 'Terminus') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+INSERT INTO `field_title` (pages_id, data) VALUES('1126', 'Generative') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+INSERT INTO `field_title` (pages_id, data) VALUES('1127', 'Monospaced') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+INSERT INTO `field_title` (pages_id, data) VALUES('1128', 'Autopia') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+INSERT INTO `field_title` (pages_id, data) VALUES('1129', 'Antoine Gelgon') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+INSERT INTO `field_title` (pages_id, data) VALUES('1130', 'Serif') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+INSERT INTO `field_title` (pages_id, data) VALUES('1131', 'Autotrace') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), data=VALUES(data);
+
+DROP TABLE IF EXISTS `field_used_in`;
+CREATE TABLE `field_used_in` (
+  `pages_id` int(10) unsigned NOT NULL,
+  `data` mediumtext NOT NULL,
+  PRIMARY KEY (`pages_id`),
+  KEY `data_exact` (`data`(255)),
+  FULLTEXT KEY `data` (`data`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `field_used_in` (pages_id, data) VALUES('1114', '[http://www.esad-gv.fr](http://www.esad-gv.fr)');
 
 DROP TABLE IF EXISTS `field_webfont_archive`;
 CREATE TABLE `field_webfont_archive` (
@@ -151,6 +268,26 @@ INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified
 INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1114', 'dauphine_regular.svg', '6', '', '2014-01-27 08:26:42', '2014-01-27 08:26:42');
 INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1114', 'specimen_stylesheet.css', '7', '', '2014-01-27 08:26:44', '2014-01-27 08:26:44');
 INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1114', 'dauphine_regular.woff', '8', '', '2014-01-27 08:26:42', '2014-01-27 08:26:42');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1121', 'niklapolice-webfont.woff', '9', '', '2014-07-15 10:44:48', '2014-07-15 10:44:48');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1121', 'grid_12-825-55-15.css', '8', '', '2014-07-15 10:44:48', '2014-07-15 10:44:48');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1121', 'stylesheet.css', '6', '', '2014-07-15 10:44:48', '2014-07-15 10:44:48');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1121', 'niklapolice-demo.html', '7', '', '2014-07-15 10:44:48', '2014-07-15 10:44:48');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1121', 'specimen_stylesheet.css', '5', '', '2014-07-15 10:44:48', '2014-07-15 10:44:48');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1121', 'niklapolice-webfont.ttf', '3', '', '2014-07-15 10:44:48', '2014-07-15 10:44:48');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1121', 'easytabs.js', '4', '', '2014-07-15 10:44:48', '2014-07-15 10:44:48');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1121', 'niklapolice-webfont.svg', '2', '', '2014-07-15 10:44:48', '2014-07-15 10:44:48');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1121', 'generator_config.txt', '1', '', '2014-07-15 10:44:48', '2014-07-15 10:44:48');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1121', 'niklapolice-webfont.eot', '0', '', '2014-07-15 10:44:48', '2014-07-15 10:44:48');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1128', 'stylesheet.css', '7', '', '2014-07-17 09:19:10', '2014-07-17 09:19:10');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1128', 'autopia-webfont.ttf', '6', '', '2014-07-17 09:19:10', '2014-07-17 09:19:10');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1128', 'autopia-webfont.svg', '5', '', '2014-07-17 09:19:10', '2014-07-17 09:19:10');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1128', 'specimen_stylesheet.css', '4', '', '2014-07-17 09:19:10', '2014-07-17 09:19:10');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1128', 'easytabs.js', '3', '', '2014-07-17 09:19:10', '2014-07-17 09:19:10');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1128', 'autopia-demo.html', '2', '', '2014-07-17 09:19:10', '2014-07-17 09:19:10');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1128', 'autopia-webfont.woff', '1', '', '2014-07-17 09:19:10', '2014-07-17 09:19:10');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1128', 'generator_config.txt', '0', '', '2014-07-17 09:19:10', '2014-07-17 09:19:10');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1128', 'grid_12-825-55-15.css', '8', '', '2014-07-17 09:19:10', '2014-07-17 09:19:10');
+INSERT INTO `field_webfont_archive` (pages_id, data, sort, description, modified, created) VALUES('1128', 'autopia-webfont.eot', '9', '', '2014-07-17 09:19:10', '2014-07-17 09:19:10');
 
 INSERT INTO `fieldgroups` (id, name) VALUES('1', 'home') ON DUPLICATE KEY UPDATE id=VALUES(id), name=VALUES(name);
 INSERT INTO `fieldgroups` (id, name) VALUES('88', 'sitemap') ON DUPLICATE KEY UPDATE id=VALUES(id), name=VALUES(name);
@@ -169,23 +306,25 @@ INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES(
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('5', '1', '0', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('3', '92', '1', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('80', '1', '0', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
-INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '105', '8', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
+INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '1', '0', '{\"columnWidth\":60}') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('1', '1', '0', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('99', '1', '0', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
-INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '101', '7', '{\"columnWidth\":28}') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '102', '5', '{\"columnWidth\":34}') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '106', '6', '{\"columnWidth\":41,\"label\":\"comments\"}') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('100', '1', '0', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('98', '1', '0', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('83', '1', '0', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('83', '76', '1', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
+INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '105', '8', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
+INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '112', '9', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
+INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('88', '1', '0', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
+INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('1', '76', '1', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
+INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('98', '110', '1', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
+INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '101', '7', '{\"columnWidth\":28}') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '100', '4', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '104', '3', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '109', '2', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '103', '1', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
-INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('97', '1', '0', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
-INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('88', '1', '0', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
-INSERT INTO `fieldgroups_fields` (fieldgroups_id, fields_id, sort, data) VALUES('1', '76', '1', '') ON DUPLICATE KEY UPDATE fieldgroups_id=VALUES(fieldgroups_id), fields_id=VALUES(fields_id), sort=VALUES(sort), data=VALUES(data);
 
 INSERT INTO `fields` (id, type, name, flags, label, data) VALUES('103', 'FieldtypeURL', 'download_url', '0', 'Download URL', '{\"noRelative\":1,\"addRoot\":0,\"columnWidth\":40,\"required\":1,\"size\":0,\"maxlength\":1024,\"placeholder\":\"Project page or repository\"}') ON DUPLICATE KEY UPDATE id=VALUES(id), type=VALUES(type), name=VALUES(name), flags=VALUES(flags), label=VALUES(label), data=VALUES(data);
 INSERT INTO `fields` (id, type, name, flags, label, data) VALUES('104', 'FieldtypePage', 'related_fonts', '0', 'Related font(s)', '{\"derefAsPage\":0,\"columnWidth\":33,\"parent_id\":1006,\"labelFieldName\":\"title\",\"inputfield\":\"InputfieldSelectMultiple\",\"size\":10,\"addable\":1,\"template_id\":43,\"findPagesCode\":\"$allPages = $pages->find(\\\"template=font\\\");\\r\\n$relatedPages = $pages->find(\\\"related_fonts=$page\\\");\\r\\nforeach($relatedPages as $p){\\r\\n  $thisPage = wire($page);\\r\\n  $p->related_fonts->add($thisPage);\\r\\n  $p->save();\\r\\n}\\r\\nreturn $allPages;\"}') ON DUPLICATE KEY UPDATE id=VALUES(id), type=VALUES(type), name=VALUES(name), flags=VALUES(flags), label=VALUES(label), data=VALUES(data);
@@ -196,8 +335,10 @@ INSERT INTO `fields` (id, type, name, flags, label, data) VALUES('76', 'Fieldtyp
 INSERT INTO `fields` (id, type, name, flags, label, data) VALUES('102', 'FieldtypePage', 'keywords', '0', 'Keywords', '{\"derefAsPage\":0,\"columnWidth\":33,\"required\":1,\"parent_id\":1008,\"labelFieldName\":\"title\",\"inputfield\":\"InputfieldSelectMultiple\",\"size\":10,\"addable\":1,\"template_id\":46,\"description\":\"You can refer to VOX ATypI classification to choose keywords.\\r\\n[Image](..\\/..\\/..\\/site\\/templates\\/styles\\/images\\/vox.jpg) - [Wikipedia](http:\\/\\/en.wikipedia.org\\/wiki\\/VOX-ATypI_classification)\"}') ON DUPLICATE KEY UPDATE id=VALUES(id), type=VALUES(type), name=VALUES(name), flags=VALUES(flags), label=VALUES(label), data=VALUES(data);
 INSERT INTO `fields` (id, type, name, flags, label, data) VALUES('106', 'FieldtypeTextarea', 'comments', '0', 'Comments', '{\"textformatters\":[\"TextformatterMarkdownExtra\"],\"inputfieldClass\":\"InputfieldTextarea\",\"columnWidth\":66,\"rows\":5,\"description\":\"Markdown formatted\"}') ON DUPLICATE KEY UPDATE id=VALUES(id), type=VALUES(type), name=VALUES(name), flags=VALUES(flags), label=VALUES(label), data=VALUES(data);
 INSERT INTO `fields` (id, type, name, flags, label, data) VALUES('109', 'FieldtypeCheckbox', 'draft', '0', 'Draft', '{\"columnWidth\":20}') ON DUPLICATE KEY UPDATE id=VALUES(id), type=VALUES(type), name=VALUES(name), flags=VALUES(flags), label=VALUES(label), data=VALUES(data);
+INSERT INTO `fields` (id, type, name, flags, label, data) VALUES('110', 'FieldtypeURL', 'author_url', '0', 'Author url', '{\"noRelative\":1,\"addRoot\":0,\"size\":0,\"maxlength\":1024}') ON DUPLICATE KEY UPDATE id=VALUES(id), type=VALUES(type), name=VALUES(name), flags=VALUES(flags), label=VALUES(label), data=VALUES(data);
+INSERT INTO `fields` (id, type, name, flags, label, data) VALUES('112', 'FieldtypeTextarea', 'used_in', '0', 'Used in', '{\"inputfieldClass\":\"InputfieldTextarea\",\"contentType\":0,\"rows\":5,\"textformatters\":[\"TextformatterMarkdownExtra\"]}') ON DUPLICATE KEY UPDATE id=VALUES(id), type=VALUES(type), name=VALUES(name), flags=VALUES(flags), label=VALUES(label), data=VALUES(data);
 
-INSERT INTO `modules` (id, class, flags, data) VALUES('148', 'AdminThemeDefault', '2', '') ON DUPLICATE KEY UPDATE id=VALUES(id), class=VALUES(class), flags=VALUES(flags), data=VALUES(data);
+INSERT INTO `modules` (id, class, flags, data) VALUES('148', 'AdminThemeDefault', '2', '{\"colors\":\"classic\"}') ON DUPLICATE KEY UPDATE id=VALUES(id), class=VALUES(class), flags=VALUES(flags), data=VALUES(data);
 INSERT INTO `modules` (id, class, flags, data) VALUES('149', 'ProcessExportProfile', '1', '') ON DUPLICATE KEY UPDATE id=VALUES(id), class=VALUES(class), flags=VALUES(flags), data=VALUES(data);
 
 INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1', '0', '1', 'home', '9', '2014-04-03 11:15:57', '41', '0000-00-00 00:00:00', '2', '0') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
@@ -209,13 +350,24 @@ INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modifi
 INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1009', '1', '29', 'authors', '1', '2014-03-02 23:25:09', '41', '2013-08-23 23:38:19', '41', '6') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
 INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1120', '1007', '45', 'sil-open-font-license-version-1.1', '1', '2014-04-03 19:09:01', '41', '2014-04-03 19:09:01', '41', '0') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
 INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1100', '1', '29', 'about', '1', '2014-03-02 23:25:09', '41', '2014-01-27 10:15:40', '41', '7') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
-INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1115', '1009', '44', 'charles-maze', '1', '2014-04-03 19:09:01', '41', '2014-04-03 19:09:01', '41', '0') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
-INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1116', '1009', '44', 'coline-sunier', '1', '2014-04-03 19:09:01', '41', '2014-04-03 19:09:01', '41', '1') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
-INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1117', '1009', '44', 'alexandre-leray', '1', '2014-04-03 19:09:01', '41', '2014-04-03 19:09:01', '41', '2') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
-INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1118', '1009', '44', 'stephanie-vilayphiou', '1', '2014-04-03 19:09:01', '41', '2014-04-03 19:09:01', '41', '3') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1115', '1009', '44', 'charles-maze', '1', '2014-07-17 15:51:55', '41', '2014-04-03 19:09:01', '41', '0') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1116', '1009', '44', 'coline-sunier', '1', '2014-07-18 10:46:45', '41', '2014-04-03 19:09:01', '41', '1') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1117', '1009', '44', 'alexandre-leray', '1', '2014-07-18 10:47:00', '41', '2014-04-03 19:09:01', '41', '2') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1118', '1009', '44', 'stephanie-vilayphiou', '1', '2014-07-18 10:47:12', '41', '2014-04-03 19:09:01', '41', '3') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
 INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1113', '22', '2', 'export-site-profile', '1', '2014-04-01 16:04:10', '41', '2014-04-01 16:04:10', '41', '2') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
 INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1119', '1008', '46', 'grotesque', '1', '2014-04-03 19:09:01', '41', '2014-04-03 19:09:01', '41', '0') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
-INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1114', '1006', '43', 'dauphine', '1', '2014-04-03 19:09:27', '41', '2014-04-03 19:04:47', '41', '0') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1114', '1006', '43', 'dauphine', '1', '2014-07-17 17:59:07', '41', '2014-04-03 19:04:47', '41', '0') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1121', '1006', '43', 'niklapolice', '1', '2014-07-17 14:50:31', '41', '2014-07-15 16:41:13', '41', '1') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1122', '1009', '44', 'etienne-ozeray', '1', '2014-07-18 10:47:26', '41', '2014-07-15 16:45:31', '41', '4') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1123', '1009', '44', 'lucas-lejeune', '1', '2014-07-18 10:48:16', '41', '2014-07-15 16:45:31', '41', '5') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1124', '1008', '46', 'glitch', '1', '2014-07-15 16:45:31', '41', '2014-07-15 16:45:31', '41', '1') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1125', '1006', '43', 'terminus', '1', '2014-07-17 11:52:14', '41', '2014-07-17 11:52:14', '41', '2') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1126', '1008', '46', 'generative', '1', '2014-07-17 11:52:15', '41', '2014-07-17 11:52:15', '41', '2') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1127', '1008', '46', 'monospaced', '1', '2014-07-17 14:50:17', '41', '2014-07-17 14:50:17', '41', '3') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1128', '1006', '43', 'autopia', '1', '2014-07-17 17:16:14', '41', '2014-07-17 15:12:59', '41', '3') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1129', '1009', '44', 'antoine-gelgon', '1', '2014-07-17 15:52:22', '41', '2014-07-17 15:19:37', '41', '6') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1130', '1008', '46', 'serif', '1', '2014-07-17 15:19:37', '41', '2014-07-17 15:19:37', '41', '4') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
+INSERT INTO `pages` (id, parent_id, templates_id, name, status, modified, modified_users_id, created, created_users_id, sort) VALUES('1131', '1008', '46', 'autotrace', '1', '2014-07-17 15:19:38', '41', '2014-07-17 15:19:38', '41', '5') ON DUPLICATE KEY UPDATE id=VALUES(id), parent_id=VALUES(parent_id), templates_id=VALUES(templates_id), name=VALUES(name), status=VALUES(status), modified=VALUES(modified), modified_users_id=VALUES(modified_users_id), created=VALUES(created), created_users_id=VALUES(created_users_id), sort=VALUES(sort);
 
 INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('37', '2', '2011-09-06 12:10:09') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
 INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('38', '2', '2011-09-06 12:10:09') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
@@ -240,6 +392,17 @@ INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1115', '1', '201
 INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1100', '1', '2014-01-27 10:15:40') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
 INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1114', '1', '2014-04-03 19:04:47') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
 INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1120', '1', '2014-04-03 19:09:01') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
+INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1121', '1', '2014-07-15 16:41:13') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
+INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1122', '1', '2014-07-15 16:45:31') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
+INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1123', '1', '2014-07-15 16:45:31') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
+INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1124', '1', '2014-07-15 16:45:31') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
+INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1125', '1', '2014-07-17 11:52:15') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
+INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1126', '1', '2014-07-17 11:52:15') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
+INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1127', '1', '2014-07-17 14:50:17') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
+INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1128', '1', '2014-07-17 15:12:59') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
+INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1129', '1', '2014-07-17 15:19:37') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
+INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1130', '1', '2014-07-17 15:19:38') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
+INSERT INTO `pages_access` (pages_id, templates_id, ts) VALUES('1131', '1', '2014-07-17 15:19:38') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), templates_id=VALUES(templates_id), ts=VALUES(ts);
 
 INSERT INTO `pages_parents` (pages_id, parents_id) VALUES('2', '1') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), parents_id=VALUES(parents_id);
 INSERT INTO `pages_parents` (pages_id, parents_id) VALUES('3', '1') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), parents_id=VALUES(parents_id);
@@ -266,7 +429,7 @@ INSERT INTO `pages_parents` (pages_id, parents_id) VALUES('1009', '1') ON DUPLIC
 INSERT INTO `pages_sortfields` (pages_id, sortfield) VALUES('1007', '-name') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), sortfield=VALUES(sortfield);
 INSERT INTO `pages_sortfields` (pages_id, sortfield) VALUES('1008', 'name') ON DUPLICATE KEY UPDATE pages_id=VALUES(pages_id), sortfield=VALUES(sortfield);
 
-INSERT INTO `session_login_throttle` (name, attempts, last_attempt) VALUES('pup', '14', '1396543063') ON DUPLICATE KEY UPDATE name=VALUES(name), attempts=VALUES(attempts), last_attempt=VALUES(last_attempt);
+INSERT INTO `session_login_throttle` (name, attempts, last_attempt) VALUES('admin', '1', '1405435015') ON DUPLICATE KEY UPDATE name=VALUES(name), attempts=VALUES(attempts), last_attempt=VALUES(last_attempt);
 
 INSERT INTO `templates` (id, name, fieldgroups_id, flags, cache_time, data) VALUES('1', 'home', '1', '0', '0', '{\"useRoles\":1,\"noParents\":1,\"allowPageNum\":1,\"slashUrls\":1,\"roles\":[37]}') ON DUPLICATE KEY UPDATE id=VALUES(id), name=VALUES(name), fieldgroups_id=VALUES(fieldgroups_id), flags=VALUES(flags), cache_time=VALUES(cache_time), data=VALUES(data);
 INSERT INTO `templates` (id, name, fieldgroups_id, flags, cache_time, data) VALUES('29', 'basic-page', '83', '0', '0', '{\"slashUrls\":1}') ON DUPLICATE KEY UPDATE id=VALUES(id), name=VALUES(name), fieldgroups_id=VALUES(fieldgroups_id), flags=VALUES(flags), cache_time=VALUES(cache_time), data=VALUES(data);

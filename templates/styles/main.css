@@ -331,12 +331,15 @@ header .fullh[type=range] {
 .typeface .meta li.fontname {
   margin-bottom: 10px;
 }
-.typeface .meta li li:before {
-  content: '';
-  padding-right: 1.2em;
+.typeface .meta li li {
+  text-indent: 1.2em;
 }
 .typeface .meta h2 {
   color: #808080;
+}
+.typeface .meta p {
+  text-indent: 0em;
+  padding-left: 15px;
 }
 .typeface .fontlist {
   float: left;

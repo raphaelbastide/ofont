@@ -1,5 +1,5 @@
-<?php 
-include("./head.inc"); 
+<?php
+include("./head.inc");
 
 if (!$page->draft){
   echo "<div class='typeface'>";
@@ -22,19 +22,22 @@ if (!$page->draft){
     echo "</ul></li>";
   }
 
-// Authors
+// Authors + url
 
   $authors = $page->authors;
   if ($authors){
     echo "<li><ul class='authors'>";
     echo "Designed by:";
     foreach($authors as $author){
-      echo "<li><a href='{$author->url}'>{$author->title}</a></li>";
+      echo "<li><a href='{$author->url}'>{$author->title}</a> ";
+      if ($author->author_url){
+        echo "<a href='{$author->author_url}'>(url)</a>";
+      }
+      echo "</li>";
     }
     echo "</ul></li>";
   }
-
-
+  
 // Keywords
 
   $keywords = $page->keywords;
@@ -72,8 +75,28 @@ if (!$page->draft){
     echo "</ul></li>";
   }
 
+// Font Description
+
+  $comments = $page->comments;
+  if ($comments){
+    echo "<li><ul class='comments'>";
+    echo "Font description:";
+    echo "<li>{$comments}</li>";
+    echo "</ul></li>";
+  }
+
+// Used in
+
+  $used_in = $page->used_in;
+  if ($used_in){
+    echo "<li><ul class='used_in'>";
+    echo "Used in:";
+    echo "<li>{$used_in}</li>";
+    echo "</ul></li>";
+  }
+
   if($page->editable()) {
-      echo "<li><a class='nav' id='editpage' href='{$config->urls->admin}page/edit/?id={$page->id}'>Edit</a></li>"; 
+      echo "<li><a class='nav' id='editpage' href='{$config->urls->admin}page/edit/?id={$page->id}'>Edit</a></li>";
   }
 
   echo "</ul>"; // END .meta
@@ -125,5 +148,4 @@ if (!$page->draft){
     echo "<h1>This font is not public yet.</h1>";
   }
 
-include("./foot.inc"); 
-
+include("./foot.inc");
