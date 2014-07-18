@@ -27,7 +27,7 @@ foreach($fontlist as $font){
   }
 
     if($font->editable()) {
-        echo "<li><a class='nav' id='editpage' href='{$config->urls->admin}page/edit/?id={$font->id}'>Edit</a></li>"; 
+        echo "<li><a class='nav' id='editpage' href='{$config->urls->admin}page/edit/?id={$font->id}'>Edit</a></li>";
     }
 
     echo "</ul>"; // END .meta

@@ -29,12 +29,11 @@
           <li>
             <label class="font-size">
               <span class="fullh icon icon-size"></span> <span class="valuebox">(<span class="value">80</span>pt):</span>
-              <input class="fullh" type="range" min="9" max="120" step="1" value="80">
+              <input class="fullh" type="range" min="9" max="450" step="1" value="80">
             </label>
           </li>
         </ul>
-  
+
 	</header>
-    
+
 	<div class="content">
-  
