@@ -37,7 +37,7 @@ if (!$page->draft){
     }
     echo "</ul></li>";
   }
-  
+
 // Keywords
 
   $keywords = $page->keywords;
@@ -63,14 +63,18 @@ if (!$page->draft){
     echo "</ul></li>";
   }
 
-// License
+// License + url
 
   $license = $page->license;
   if ($license){
     echo "<li><ul class='license'>";
     echo "License:";
     foreach($license as $license){
-      echo "<li>{$license->title}</li>";
+      echo "<li>{$license->title}";
+      if ($license->license_url){
+        echo "<a href='{$license->license_url}'>(url)</a>";
+      }
+      echo "</li>";
     }
     echo "</ul></li>";
   }
