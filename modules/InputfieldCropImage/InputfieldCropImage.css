@@ -1,0 +1,27 @@
+.crops {
+	border-top: 0;
+	overflow: hidden;
+	padding: 1em;
+}
+
+.crops p {
+	margin: 0 0 0.5em 0;
+}
+
+.crops a {
+	display: block;
+	float: left;
+	margin-right: 10px;
+}
+
+.crops a img {
+	background: white;
+	margin: 0;
+	padding: 10px;
+	box-shadow: 2px 2px 5px #333;
+	max-width: 100%;
+}
+
+.InputfieldCropImage .InputfieldFileData {
+	margin-bottom: 0;
+}
