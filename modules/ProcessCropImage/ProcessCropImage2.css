@@ -1,0 +1,77 @@
+body.modal, #content {
+	margin: 0;
+	padding: 0;
+	background: #444;
+}
+
+#content .container {
+	max-width: none;
+}
+
+#hd {
+	background: white;
+	border-bottom: 1px solid #222;
+	overflow: hidden;
+	box-shadow: 0px 0px 6px #000;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 60px;
+	z-index: 9999;
+}
+
+#hd p {
+	margin: 0;
+	padding: 20px;
+	margin-right: 200px;
+}
+
+#hd form {
+	float: right;
+	padding: 20px;
+}
+
+#hd form label {
+	margin-left: 4px;
+	margin-right: 8px;
+}
+
+#hd form .ui-button {
+	margin: 0;
+}
+
+
+#bd {
+	clear: both;
+	margin: 10px;
+	margin-top: 70px;
+	position: relative;
+}
+
+#preview-container {
+	position: fixed;
+	top: 80px;
+	right: 20px;
+	border: 1px solid white;
+	box-shadow: 1px 1px 3px #000;
+	z-index: 9998;
+}
+
+.hide {
+	display: none;
+}
+
+#results {
+	text-align: center;
+	background: white;
+	padding: 50px 20px;
+}
+
+#results img {
+	margin: 0 auto;
+}
+
+#results .ui-button {
+	margin: 0;
+}

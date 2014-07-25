@@ -1,0 +1,163 @@
+<?php
+class FieldtypeCropImage extends FieldtypeImage {
+
+        public static function getModuleInfo() {
+                return array(
+                        'title' => __('Images with cropping', __FILE__), // Module Title
+                        'summary' => __('Field that stores one or more GIF, JPG, or PNG images', __FILE__), // Module summary
+                        'version' => 103,
+                        );
+        }
+
+        public function init() {
+                $this->addHook('Pageimage::getThumb', $this, 'getThumb');  
+		$this->addHookAfter('Pageimages::delete', $this, 'deleteThumb'); 
+        }
+
+	/**
+	 * Delete a crop when the parent image is deleted
+	 *
+	 */
+	public function deleteThumb(HookEvent $event) {
+		$images = $event->object; 	
+		$image = $event->arguments[0]; 
+		$event->object = $image; 
+		$inputfield = $this->_getInputFieldInstance($event); 
+		if(!$inputfield) return;
+		if(is_string($image)) $image = $images->get($image);
+		if(!$image) return;
+		$crops = $inputfield->thumbSetting; 
+		$crops_a = explode("\n", $crops); 
+		foreach($crops_a as $crop) {
+			$crop = explode(',', $crop);
+			$name = wire('sanitizer')->name($crop[0]); 
+			if(!strlen($name)) continue; 
+			$cropFilename = $images->path() . $name . '_' . $image->basename;
+			if(is_file($cropFilename)) {
+				unlink($cropFilename); 
+				$this->message($this->_("Removed crop") . ': ' . basename($cropFilename), Notice::debug); 
+			}
+			
+		}
+	}
+
+        public function getThumb(HookEvent $event) {
+				
+		$thumbFound = false;
+                $thumb = $event->arguments[0];
+
+		// return InputfieldCropImage or null if not found
+		$inputFieldInstance = $this->_getInputFieldInstance($event);
+		
+		if(!$inputFieldInstance) return true;
+			
+		// read crop settings from InputfieldCropImage
+		$crops = $inputFieldInstance->thumbSetting;
+		
+		// and we continue...
+		
+		$crops_a = explode("\n", $crops); // ie. thumbname,200,200 (name,width,height)
+
+		foreach($crops_a as $crop) {
+			$crop = explode(",", $crop);
+			if ($crop[0] == $thumb) {
+				$this->w = (int) $crop[1];
+				$this->h = (int) $crop[2];
+				$thumbFound = true;
+				break;
+			}
+		}
+		
+		if ($thumbFound === false) {
+			throw new WireException(sprintf($this->_("There is no thumb called: %s"), $thumb)); 
+			return;
+		}
+		
+		if ($this->w < 1 && $this->h < 1) {
+			throw new WireException(sprintf($this->_("Width and height not found for thumb: %s"), $thumb));
+			return;
+		}				
+
+		$prefix = $this->sanitizer->name($thumb);
+                $img = $event->object;
+                $imgPath = $img->pagefiles->path() . $prefix . "_" . $img->basename;
+                $imgUrl = $img->pagefiles->url() . $prefix . "_" . $img->basename;
+
+		// We have a file, that is probably ok...
+                if(is_file($imgPath)) {
+			
+			// But we check if the size matches for desired and resize if not
+			$sizer = new ImageSizer($imgPath);
+			if ($this->w != $sizer->getWidth() || $this->h != $sizer->getHeight()) {
+				$this->_copyAndResize($img, $imgPath);
+			}
+			 
+			// And finally we return the url
+			$event->return = $imgUrl;
+
+                } else {
+			// Image not found, we take basic crop from original
+			$this->_copyAndResize($img, $imgPath);
+			$event->return = $imgUrl;
+                }
+
+		return true;
+        }
+
+	public function _getInputFieldInstance(HookEvent $event) {
+
+	
+		$field = null; // where we'll keep the field we're looking for
+		$image = $event->object;
+		$page = $image->page; 
+		$action = $event->arguments[0]; 
+
+		// find all fields of type FieldtypeImage that are part of the page we're using
+		// or regular image fields with InputfieldImage inputfield assigned
+		$imageFields = array(); 
+		foreach($page->fields as $f) {
+			if($f->type instanceof FieldtypeCropImage || ($f->inputfieldClass && $f->inputfieldClass == 'InputfieldCropImage')) {
+				$imageFields[] = $f; 
+			}
+		}
+
+		// loop through to find the one we're looking for
+		foreach($imageFields as $imageField) {
+
+			// good to get unformatted in case it's a single image field, 
+			// because it'll still be an array rather than 1 image
+			$pagefiles = $page->getUnformatted($imageField->name);
+			
+
+			// if the image's pagefiles property matches the one with the 
+			// field we're looking at, we have a match. save in $field
+			if($image->pagefiles === $pagefiles) {
+				$field = $imageField->getInputfield($page);
+				break;
+			}
+		}
+
+		if($field) {
+			//$event->return = $out;
+			return $field;
+		}
+		
+		return null;
+	}
+			
+	
+	
+	
+	public function install() {
+		parent::___install();
+		$this->modules->get('ProcessCropImage');
+		$this->modules->get('InputfieldCropImage');
+	}
+	
+	private function _copyAndResize($img, $imgPath) {
+		if(@copy($img->pagefiles->path . $img->basename, $imgPath)) {
+			$sizer = new ImageSizer($imgPath); 
+			$sizer->resize($this->w, $this->h);						
+		}
+	}
+}

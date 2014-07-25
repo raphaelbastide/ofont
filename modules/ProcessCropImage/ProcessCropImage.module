@@ -1,0 +1,400 @@
+<?php
+// original by apeisa
+// added support for PageImageManipulator by horst
+// added functionality by owzim & horst
+
+class ProcessCropImage extends Process implements ConfigurableModule  {
+
+	public static function getModuleInfo() {
+		return array(
+			'title' => __('Image cropping tool', __FILE__), // Module Title
+			'summary' => __('Crop thumbnails (Configuration Settings moved to CropImage field settings).', __FILE__), // Module Summary
+			'href' => 'http://processwire.com/talk/index.php/topic,705.0.html',
+			'version' => 102,
+			'permanent' => false,
+			'autoload' => false,
+			'singular' => true,
+			'permission' => "page-edit"
+		);
+	}
+
+	static public function getDefaultData() {
+		return array(
+			'crops' => 'thumbnail,100,100',
+			'cropOriginal' => 0
+		);
+	}
+
+	public function __construct() {
+		foreach(self::getDefaultData() as $key => $value) {
+			$this->$key = $value;
+		}
+	}
+
+	public function init() {
+		if(true === ($this->pimBoost = (bool)wire('modules')->isInstalled('PageImageManipulator'))) {
+			// now check that at least the minimum version is installed:
+			$needed = '0.0.8';
+			$a = wire('modules')->get('PageImageManipulator')->getModuleInfo();
+			$actual = preg_replace('/(\d)(?=\d)/', '$1.', str_pad("{$a['version']}", 3, "0", STR_PAD_LEFT));
+			$this->pimBoost = version_compare($actual, $needed, '<') ? false : true;
+		}
+		$this->pimBoostPermanent = $this->pimBoost && is_array(wire('config')->imageManipulatorOptions) && isset(wire('config')->imageManipulatorOptions['thumbnailCoordsPermanent']) ? wire('config')->imageManipulatorOptions['thumbnailCoordsPermanent'] : false;
+		require_once(dirname(__FILE__).'/../CropImageKeepCoords.class.php');
+	}
+
+	private function getCropImageOptions() {
+		$defaultOptions = array(
+			'autoRotation' => true,
+			'upscaling' => true,
+			'cropping' => true,
+			'quality' => 90,
+			'sharpening' => 'soft',
+			'bgcolor' => array(255,255,255,0),
+			'targetFilename' => null,
+			'outputFormat' => null,
+			'colorize' => 'none',
+			'thumbnailColorizeCustom' => array(0,0,0),
+		);
+		$configOptions1 = wire('config')->imageSizerOptions;
+		if(!is_array($configOptions1)) $configOptions1 = array();
+		$configOptions2 = wire('config')->imageManipulatorOptions;
+		if(!is_array($configOptions2)) $configOptions2 = array();
+		$sessionOptions = wire('session')->cropImageOptions;
+		if(!is_array($sessionOptions)) $sessionOptions = array();
+		$res = array_merge($defaultOptions, $configOptions1, $configOptions2, $sessionOptions);
+		if(!in_array($res['colorize'], array('none','grayscale','sepia','cyan','custom'))) {
+			$res['colorize'] = 'none';
+		}
+		return $res;
+	}
+
+
+	public function ___execute() {
+
+		$this->config->scripts->add($this->config->urls->ProcessCropImage . "ProcessCropImage2.js");
+		if($this->pimBoost) {
+			// because of the larger form I have changed its position from right to left
+			$this->config->styles->add($this->config->urls->ProcessCropImage . "ProcessCropImage2pim.css");
+		}
+		else {
+			$this->config->styles->add($this->config->urls->ProcessCropImage . "ProcessCropImage2.css");
+		}
+
+		$this->config->scripts->add($this->config->urls->ProcessCropImage . "Jcrop/js/jquery.Jcrop.min.js");
+		$this->config->styles->add($this->config->urls->ProcessCropImage . "Jcrop/css/jquery.Jcrop.css");
+
+		$this->setFuel('processHeadline', 'Crop images');
+
+		$field = wire('sanitizer')->fieldName($this->input->get->field);
+
+		if (preg_match("/_repeater[0-9]+$/", $field)) {
+			$pages_id = (int) end(explode("_repeater", $field));
+			$field = str_replace("_repeater$pages_id", "", $field);
+		} else {
+			$pages_id = (int) $this->input->get->pages_id;
+		}
+
+		$filename = wire('sanitizer')->name($this->input->get->filename);
+		$height = (int) $this->input->get->height;
+		$width = (int) $this->input->get->width;
+		$prefix = wire('sanitizer')->name($this->input->get->prefix);
+
+		if ($pages_id < 0 || strlen($filename) < 3) {
+			$out = "<p class='description'>" . $this->_("This page only works when you come from image field.") . "</p>";
+		} else {
+			$page = wire('pages')->get($pages_id);
+			if(!$page->editable()) throw new WirePermissionException('Not Editable');
+			$fieldValue = $page->get($field);
+			if(!$fieldValue || !$fieldValue instanceof Pageimages) throw new WireException("Invalid field");
+			$img = $fieldValue->get("$filename");
+			if(!$img) throw new WireException("Invalid file");
+			$imageUrl = $img->url;
+
+			$options = $this->getCropImageOptions();
+			$x1 = $y1 = $w = $h = 0;
+			$params = array();
+			$keepCoords = new CropImageKeepCoords($img, $prefix, $width, $height, $this->pimBoostPermanent);
+			if($keepCoords->read($x1, $y1, $w, $h, $params)) {
+				foreach(array('quality','sharpening','colorize') as $param) {
+					if(isset($params[$param])) {
+						$options[$param] = $params[$param];
+					}
+				}
+			}
+			unset($keepCoords);
+			$out = '';
+			$out .= "<div id='hd'>";
+			if($this->pimBoost) {
+				$out .= <<<FORMpim
+<form class="hd" method="POST" action="./save/?modal=1">
+	<input type="hidden" name="filename" value="{$filename}" />
+	<input type="hidden" name="field" value="{$field}" />
+	<input type="hidden" name="pages_id" value="{$pages_id}" />
+	<input type="hidden" name="width" value="{$width}" />
+	<input type="hidden" name="height" value="{$height}" />
+	<input type="hidden" name="prefix" value="{$prefix}" />
+	<input type="hidden" id="x1" name="crop[x1]" value="{$x1}">
+	<input type="hidden" id="y1" name="crop[y1]" value="{$y1}">
+	<input type="hidden" id="w" name="crop[w]" value="{$w}">
+	<input type="hidden" id="h" name="crop[h]" value="{$h}">
+	<!-- Sharpen -->
+	<dl>
+	    <dt><label for="sharpening">{$this->_("Sharpen")}</label></dt>
+	    <dd>
+            <select id="sharpening" name="sharpening">
+	  <option selected>{$options['sharpening']}</option>
+	  <option>none</option>
+	  <option>soft</option>
+	  <option>medium</option>
+	  <option>strong</option>
+	  <option>multistep</option>
+	</select>
+	    </dd>
+	</dl>
+	<!-- Quality -->
+	<dl>
+	    <dt><label for="quality">{$this->_("Quality")}</label></dt>
+	    <dd>
+            <select id="quality" name="quality">
+	  <option selected>{$options['quality']}</option>
+	  <option>100</option>
+	  <option>97</option>
+	  <option>94</option>
+	  <option>92</option>
+	  <option>90</option>
+	  <option>87</option>
+	  <option>84</option>
+	  <option>80</option>
+	  <option>75</option>
+	  <option>70</option>
+	  <option>65</option>
+	  <option>60</option>
+	  <option>55</option>
+	  <option>50</option>
+	</select>
+	    </dd>
+	</dl>
+	<!-- Colorize -->
+	<dl>
+	    <dt><label for="colorize">{$this->_("Colorize")}</label></dt>
+	    <dd>
+            <select id="colorize" name="colorize">
+	  <option selected>{$options['colorize']}</option>
+	  <option>none</option>
+	  <option>grayscale</option>
+	  <option>sepia</option>
+	  <option>cyan</option>
+	  <option>custom</option>
+	</select>
+	    </dd>
+	</dl>
+	<dl>
+	    <dt><label for="show_preview">{$this->_("Show Preview?")}</label></dt>
+	    <dd><input type="checkbox" checked="checked" name="show_preview" id="show_preview"></dd>
+	</dl>
+	<dl>
+	    <dt>&nbsp;</dt>
+	    <dd><button type="submit" class="ui-button ui-widget ui-corner-all head_button_clone ui-state-default" id="cropButton">{$this->_("Crop and go")}</button></dd>
+	</dl>
+</form>
+FORMpim;
+			}
+			else {
+				$out .= <<<FORM
+<form method="POST" action="./save/?modal=1">
+	<input type="hidden" name="filename" value="{$filename}" />
+	<input type="hidden" name="field" value="{$field}" />
+	<input type="hidden" name="pages_id" value="{$pages_id}" />
+	<input type="hidden" name="width" value="{$width}" />
+	<input type="hidden" name="height" value="{$height}" />
+	<input type="hidden" name="prefix" value="{$prefix}" />
+	<input type="hidden" id="x1" name="crop[x1]" value="{$x1}">
+	<input type="hidden" id="y1" name="crop[y1]" value="{$y1}">
+	<input type="hidden" id="w" name="crop[w]" value="{$w}">
+	<input type="hidden" id="h" name="crop[h]" value="{$h}">
+	<label for="show_preview">{$this->_("Show Preview?")} </label> <input type="checkbox" checked="checked" name="show_preview" id="show_preview">
+	<button type="submit" class="ui-button ui-widget ui-corner-all head_button_clone ui-state-default" id="cropButton">{$this->_("Crop and go")}</button>
+</form>
+FORM;
+			}
+
+			$out .= "<p class='description'>" . sprintf($this->_('Click and drag the cropped area with your cursor. Cropped image will be resized to %s pixels'), '<b>' . $width . '</b>x<b>' . $height . '</b>') . "</p>";
+			$out .= "</div>";
+
+			$out .= "<div id='bd'><img src='$imageUrl' data-width='{$width}' data-height='{$height}' id='jcrop_target' alt='' />";
+			if ($width) $out .= "<div id='preview-container' style='overflow:hidden; height:{$height}px; width:{$width}px;'><img src='$imageUrl' id='preview' alt='' /></div>";
+			$out .= "</div>";
+		}
+
+		return $out;
+	}
+
+	public function ___executeSave() {
+
+		$this->config->styles->add($this->config->urls->ProcessCropImage . "ProcessCropImage2.css");
+
+		$pages_id = (int) $this->input->post->pages_id;
+		$filename = wire('sanitizer')->name($this->input->post->filename);
+		$field = wire('sanitizer')->fieldName($this->input->post->field);
+		$crop = $this->input->post->crop;
+		if(!is_array($crop)) throw new WireException("Invalid crop value");
+		foreach($crop as $k => $v) $crop[$k] = (int) $v;
+
+		$prefix = wire('sanitizer')->name($this->input->post->prefix);
+		$targetWidth = (int) $this->input->post->width;
+		$targetHeight = (int) $this->input->post->height;
+
+		if (!$prefix) {
+			$targetHeight = (int) $crop['h'];
+			$targetWidth = (int) $crop['w'];
+		}
+
+		$page = wire('pages')->get($pages_id);
+		if(!$page->id) throw new WireException("Invalid page");
+		if(!$page->editable()) throw new WirePermissionException("Not Editable");
+
+		$fieldValue = $page->get($field);
+		if(!$fieldValue || !$fieldValue instanceof Pagefiles) throw new WireException("Invalid field");
+
+		$img = $fieldValue->get("$filename");
+		if(!$img) throw new WireException("Invalid filename");
+		$imagePath = $img->filename();
+
+		if (strlen($prefix) > 1) {
+			$targetPath = $fieldValue->path() . $prefix . '_' . $filename;
+			$targetUrl = $fieldValue->url() . $prefix . '_' . $filename;
+		} else {
+			$targetPath = $imagePath;
+			$targetUrl = $img->url();
+		}
+
+		$params = array();
+		if($this->pimBoost) {
+			$quality = intval($this->input->post->quality);
+			$sharpening = (string)$this->input->post->sharpening;
+			$colorize = (string)$this->input->post->colorize;
+			$params = array($quality, $sharpening, $colorize);
+			// using the PageImageManipulator module
+			$pim = wire('modules')->get('PageImageManipulator')->imLoad();
+			$boolResult = $pim->fileThumbnailModule($img, $targetPath, $prefix, $crop['x1'], $crop['y1'], $crop['w'], $crop['h'], $targetWidth, $targetHeight, $quality, $sharpening, $colorize);
+			unset($pim);
+		}
+		else {
+			// and here we change the old behave to use PWs ImageSizer, so once it is updated to use auto-sharpening,
+			// this is included into thumbnails too :)
+			$options = $this->getCropImageOptions();
+			$jpeg_quality = $options['quality'];
+
+			// first we create a copy
+			if(!copy($imagePath, $targetPath)) {
+				throw new WireException("Cannot copy SourceImageFile!");
+			}
+			$extension = pathinfo($imagePath, PATHINFO_EXTENSION);
+
+			// we do the cropping here, because it isn't supported by ImageSizer to crop at precise pixel positions
+			if($crop['w']>0 && $crop['h']>0) {
+				$img_r = imagecreatefromstring(file_get_contents($targetPath));
+				$dst_r = imagecreatetruecolor($crop['w'], $crop['h']);
+				imagealphablending($dst_r, false);
+
+				imagecopy($dst_r, $img_r, 0, 0, $crop['x1'], $crop['y1'], $crop['w'], $crop['h']);
+				// we write to file
+				switch($extension) {
+					case 'gif':
+						imagegif($dst_r,$targetPath);
+						break;
+					case 'png':
+						// convert 1-100 (worst-best) scale to 0-9 (best-worst) scale for PNG
+						$quality = round(abs(($jpeg_quality - 100) / 11.111111));
+						imagesavealpha($dst_r, true);
+						imagepng($dst_r,$targetPath,$quality);
+						break;
+					case 'jpeg':
+					case 'jpg':
+						imagejpeg($dst_r,$targetPath,$jpeg_quality);
+						break;
+				}
+				imagedestroy($img_r);
+				imagedestroy($dst_r);
+			}
+			// and then let the ImageSizer do the resizing
+			$im = new ImageSizer($targetPath);
+			$im->resize($targetWidth, $targetHeight);
+			unset($im);
+		}
+
+		// keep as session storage
+		$keepCoords = new CropImageKeepCoords($img, $prefix, $targetWidth, $targetHeight, $this->pimBoostPermanent);
+		$keepCoords->write($crop['x1'], $crop['y1'], $crop['w'], $crop['h'], $params);
+		unset($keepCoords);
+
+		// Timestamp prevents browser cache, at least I hope so :)
+		$timestamp = time();
+		$out  = "<div id='results'><img src='{$targetUrl}?timestamp={$timestamp}' alt='' />";
+		//$out .= "<ul><li><button class='ui-button ui-widget ui-corner-all head_button_clone ui-state-default' onclick=\"parent.$('.ui-dialog-content').dialog('close');\">Wow, that looks great!</button></li>";
+		$out .= "<ul><li><button class='ui-button ui-widget ui-corner-all head_button_clone ui-state-default' onclick=\"window.close();\">" . $this->_("Wow, that looks great!") . "</button></li>";
+		if ($prefix) $out .= "<li><a class='modal' href='../?filename={$filename}&amp;prefix={$prefix}&amp;width={$targetWidth}&amp;height={$targetHeight}&amp;pages_id={$pages_id}&amp;field={$field}&amp;modal=1'>" . $this->_("Not happy? Crop again!") . "</a></li>";
+		$out .= "</ul></div>";
+		return $out;
+	}
+
+	/**
+	 * Build a form allowing configuration of this Module
+	 *
+	 */
+	static public function getModuleConfigInputfields(array $data) {
+
+		$data = array_merge(self::getDefaultData(), $data);
+
+		$fields = new InputfieldWrapper();
+		$modules = Wire::getFuel('modules');
+
+		/*
+		 TODO: Should use Pageimage class for resizes when cropping original
+		$f= $modules->get('InputfieldCheckbox');
+		$f->name = "cropOriginal";
+		$f->label = "EXPERIMENTAL: Allow cropping the original files";
+		$f->description = "If checked, then it is possible to crop original image, not just thumbnails. Currently little hazardy and for testing only.";
+		$f->value = 1; // providing a "checked" value for the checkbox is necessary
+		$f->attr('checked', empty($data['cropOriginal']) ? '' : 'checked');
+		$fields->append($f);
+		*/
+
+		/* OLD CONFIGURATION
+		$f = $modules->get('InputfieldTextarea');
+		$f->attr('name', 'crops');
+		$f->attr('rows', 5);
+		$f->attr('value', $data['crops']);
+		$f->label = 'Crop setups';
+		$f->description = 'Enter all crop dimensions, one on each line and in this format: name,width,height. Few examples: "thumbnail,200,200" or "portrait,200,600"';
+		$fields->append($f);
+		*/
+		return $fields;
+	}
+
+	public function ___install() {
+		parent::___install();
+
+		$this->modules->get('FieldtypeCropImage');
+		$this->modules->get('InputfieldCropImage');
+
+		$p = new Page();
+		$p->template = $this->templates->get("admin");
+		$p->parent = $this->pages->get(3); // /admin/pages
+		$p->title = 'Image crop';
+		$p->name = 'image-crop';
+		$p->process = $this;
+		$p->save();
+	}
+
+	public function ___uninstall() {
+		parent::___uninstall();
+
+		$p = $this->pages->get(3)->children()->get('name=image-crop');
+		if ($p->id) $p->delete();
+
+		$p = $this->permissions->get('image-crop');
+		if ($p->id) $p->delete();
+	}
+}

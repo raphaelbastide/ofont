@@ -1,0 +1,115 @@
+<?php
+
+class InputfieldCropImage extends InputfieldImage {
+
+	public static function getModuleInfo() {
+		return array(
+			'title' => __('Images with cropping', __FILE__), // Module Title
+			'summary' => __('Regular images with cropping', __FILE__), // Module Summary
+			'version' => 101,
+			'permanent' => false, 
+			);
+	}
+
+	public function init() {
+		parent::init();
+		
+		//default settings
+		$this->set('thumbSetting', 'thumbnail,100,100'); 
+	}
+	
+	public function ___render() {
+		$this->config->scripts->add($this->config->urls->InputfieldImage . "InputfieldImage.js");
+		$this->config->styles->add($this->config->urls->InputfieldImage . "InputfieldImage.css");
+		return parent::___render();
+	}
+
+	protected function renderItem($pagefile, $id, $n) {
+		
+		$out = parent::renderItem($pagefile, $id, $n);
+
+		
+		$crops = $this->thumbSetting;
+
+		if (strlen($crops) > 3) {
+			// If we've defined one or more templates for specific crops, we need to check the current page's template to see if we actually have any applicable crops to show to the user
+			$page = $this->pages->get((int) $this->input->get->id);
+			if(!$page->id || !$page->editable()) throw new WirePermissionException();
+			$applicableCrops = array();
+			$cropArray = explode("\n", strtolower($crops));
+			foreach ($cropArray as $k => $v) {
+				$cropItems = explode(',', trim($v));
+				if (count($cropItems) > 3) {
+					$cropTemplates = array_slice($cropItems, 3);
+					if (in_array($page->template, $cropTemplates)) {
+						$applicableCrops[] = $cropArray[$k];
+					}
+				} else { // Any non-template-specific crops are automatically added to the list for all cropimage fields
+					$applicableCrops[] = $cropArray[$k];
+				}
+			}
+			$applicableCrops = implode("\n", $applicableCrops);
+			$cropUrl = $this->config->urls->admin."page/image-crop/";
+			
+			if (!empty($applicableCrops)) {
+				$cropLinks = $this->_getCropLinks($crops, $cropUrl, $pagefile);
+				
+				if (!empty($cropLinks)) {
+					$cropStr = "\n\t\t\t<div class='ui-widget-content crops'><p class='description'>" . $this->_("Thumbnails (hover to preview, click to crop)") . "</p>". $this->_getCropLinks($applicableCrops, $cropUrl, $pagefile) . "</div>";
+					// We add our crop string at the end of the list item that holds image
+					$out .= $cropStr;
+				}
+			}
+		}
+
+		return $out; 
+	}
+	
+	public function install() {
+		parent::___install();
+		$this->modules->get('ProcessCropImage');
+		$this->modules->get('FieldtypeCropImage');
+	}
+
+	private function _getCropLinks($crops, $cropUrl, $pagefile){
+		$out = '';
+		$crops = explode("\n", $crops);
+		foreach($crops as $crop) {
+			$crop = explode(",", $crop);
+			$prefix = $this->sanitizer->name($crop[0]);
+			$thumbUrl = $pagefile->getThumb($prefix, $this->name);
+			$out .= "<a target='_blank' data-thumburl='{$thumbUrl}' class='crop' href='$cropUrl?filename={$pagefile->basename}&prefix={$prefix}&width={$crop[1]}&height={$crop[2]}&pages_id=" . ((int) $this->input->get->id) . "&field={$this->name}&modal=1'>$crop[0]</a>";
+		}
+		if ($this->modules->get('ProcessCropImage')->cropOriginal) {
+			$out .= "<a target='_blank' data-thumburl='{$thumbUrl}' class='cropOriginal' href='$cropUrl?filename={$pagefile->basename}&pages_id=" . ((int) $this->input->get->id) . "&field={$this->name}&modal=1'>ORIGINAL</a>";
+		}
+		
+	
+		
+		return $out;
+	}
+	
+
+	
+
+	public function ___getConfigInputfields() {
+
+		$inputfields = parent::___getConfigInputfields();
+		
+		
+		$field = $this->modules->get("InputfieldTextarea"); 
+		$field->attr('name', 'thumbSetting'); 
+		$field->attr('value', (string) $this->thumbSetting ); 
+		$field->label = $this->_("Thumbnail Settings"); 
+		$field->description = $this->_('Enter all crop dimensions, one on each line in this format: name,width,height. Few examples: "thumbnail,200,200" or "portrait,200,600". Optionally, you can limit the visibility of the thumbnails to the selected template, giving as the last parameter, the name of the template. Example: "thumbnail,200,200,base-page,home"'); 
+		
+		//$fieldset->add($field); 
+
+		$inputfields->add($field); 
+		
+		return $inputfields; 	
+	}
+	
+	
+	
+}

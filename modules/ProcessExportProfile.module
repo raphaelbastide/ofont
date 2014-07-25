@@ -1,0 +1,513 @@
+<?php
+
+/**
+ * Export site profiles
+ *
+ * ProcessWire 2.x 
+ * Copyright (C) 2012 by Ryan Cramer 
+ * Licensed under GNU/GPL v2, see LICENSE.TXT
+ * 
+ * http://www.processwire.com
+ * http://www.ryancramer.com
+ *
+ */
+
+class ProcessExportProfile extends Process {
+
+	const adminPageName = 'export-site-profile';
+
+	public static function getModuleInfo() {
+		return array(
+			'title' => 'Export Site Profile', 
+			'summary' => 'Creates a site profile that can be used for a fresh install of ProcessWire.', 
+			'version' => 103, 
+			'permanent' => false, 
+			);
+	}
+
+	/**
+	 * PW20 tables that are no longer in use and/or tables that should be ignored
+	 *
+	 */
+	protected $excludeTables = array(
+		// old PW20 tables
+		'pages_drafts',
+		'pages_roles',
+		'permissions',
+		'roles',
+		'roles_permissions', 
+		'users', 
+		'users_roles', 
+
+		// tables that should be excluded for distributable profiles
+		'user',
+		'role',
+		'permission',
+		'field_roles',
+		'field_permissions',
+		'field_email',
+		'field_pass',
+		); 
+
+	/**
+	 * Don't create these tables because they are already created in the core install.sql
+	 *
+	 */
+	protected $excludeCreateTables = array(
+		'field_process', 
+		'field_email', 
+		'field_permissions', 
+		'field_roles', 
+		'field_title',
+		'field_pass',
+		'templates', 
+		'fieldgroups',
+		'fieldgroups_fields',
+		'fields',
+		'modules',
+		'pages',
+		'pages_access',
+		'pages_parents',
+		'pages_sortfields',
+		'session_login_throttle',
+		); 
+
+	/**
+	 * Path that profile DB dump is exported to
+	 *
+	 */
+	protected $exportPath;
+
+	/**
+	 * Name of /site/ dir (not a path or URL)
+	 *
+	 */
+	protected $siteDir; 
+
+	/**
+	 * URL that profile DB dump is exported to
+	 *
+	 */
+	protected $exportUrl; 
+
+	/**
+ 	 * Is the current site running PW 2.0?
+	 *
+	 */
+	protected $isUpgrade = false; 
+
+	/**
+	 * Minimum number in the first column (typically 'id' column) required to insert to the table
+	 *
+	 */
+	protected $tableWhereSQL = array(
+		'pages' => 'id>=1000 OR id=1 OR id=27',
+		'field_title' => 'pages_id>=1000 OR pages_id=1',
+		'templates' => "name!='admin' AND name!='user' AND name!='role' AND name!='permission'",
+		'fieldgroups' => "name!='admin' AND name!='user' AND name!='role' AND name!='permission'",
+		'fields' => "id>5 AND name!='email'", 
+		'modules' => 'id>147',
+		); 
+
+	public function __construct() {
+		$path = rtrim($this->config->paths->templates, '/');
+		$path = substr($path, 0, strrpos($path, '/'));
+		$this->siteDir = substr($path, strrpos($path, '/')+1); 
+		$this->exportPath = $path . '/install/';
+		$this->exportUrl = '/' . $this->siteDir . '/install/';
+		$this->isUpgrade = ProcessWire::versionMajor == 2 && ProcessWire::versionMinor == 0; 
+	}
+
+	public function init() {
+		if(!$this->user->isSuperuser()) throw new WirePermissionException("This module requires superuser access"); 
+		$info = self::getModuleInfo();
+		$this->fuel->set('processHeadline', $info['title']); 
+
+		// prevent this particular page from being copied over
+		$this->tableWhereSQL['pages'] .= ' OR id=' . $this->page->id; 
+		parent::init();
+	}
+
+	/**
+	 * Ensure that everything is where we need it to be 
+	 *
+	 * Returns false if not. 
+	 *
+	 */
+	protected function setup() {
+
+		if(wire('languages') && wire('modules')->isInstalled('LanguageSupportFields') || wire('modules')->isInstalled('LanguageSupportPageNames')) {
+			$this->error("The profile exporter is not yet compatible with multi-language fields or page names. You appear to have this installed, as a result, we don't recommend using the profile exporter until it is updated to support multi-language."); 
+		}
+
+		$path = $this->exportPath;
+		$url = $this->exportUrl;
+
+		if(!is_dir($path)) {
+			if(!mkdir($path)) {
+				$this->error("Before continuing, please create this directory and ensure that it is writable: $url"); 
+				return false;
+			}
+			if($this->config->chmodDir) chmod($path, octdec($this->config->chmodDir));	
+		}
+
+		if(!is_writable($path)) {
+			$this->error("Before continuing, please make this directory writable and remove any files already in it: $url"); 
+			return false;
+		}	
+
+		return true; 
+	}
+
+	/**
+	 * Present the instructions screen
+	 *
+	 */
+	public function ___execute() {
+
+		$info = self::getModuleInfo();			
+
+		$out = "<h2>$info[summary]</h2>";
+
+		if(!$this->setup()) return $out; 
+		$profileTime = $this->profileExists();
+
+		if($profileTime) {
+			$date = date('F j, Y', $profileTime); 
+			return 	"<p>An installation profile already exists in {$this->exportUrl} dated $date. Before continuing please remove it:</p>" . 
+				"<p><a href='./remove/'><strong>Remove existing install profile</strong></a></p>";
+		}
+
+		if($this->isUpgrade) { 
+			$out .= "<p>If you are performing a 2.0 to 2.1 upgrade, please uninstall any 3rd party modules first (excluding this one). " . 
+				"You can reinstall them on the new site.</p>";
+		}
+
+		$out .= "<dl class='nav'>"; 
+		$out .= "<dt><a href='./dump/'>Begin site profile export</a></dt>" . 
+			"<dd>Exports a site profile that can be used with a new ProcessWire installation. It does not include user or access data.</dd>";
+
+		/*
+		$out .= "<dt><a href='./dump/?full=1'>Option B: Export Site Profile for Backup or Migration</a></dt>" . 
+			"<dd>Exports all of ProcessWire's native data and tables, superceding those from a fresh install. " . 
+			"This also includes user accounts, roles, permissions, etc. </dd>";
+
+		$out .= "<p><a href='./dump/?full=2'>Option C: Export Site Profile for Upgrade</a><br />" . 
+			"This is a combination of option A and B that attempts to upgrade your ProcessWire database " . 
+			"version while maintaining all of your user accounts, roles, permissions, etc.</p>";
+		*/
+
+		$out .= "</dl>";
+
+		$out .= "<p><em>After clicking an option be patient as it may take some time to export the profile.</em></p>";
+
+		return $out; 
+	}
+
+	public function ___executeRemove() { 
+
+		$dir = $this->exportPath . "files/"; 
+		$file = $this->exportPath . "install.sql";
+
+		if(is_file($file)) {
+			if(!unlink($file)) {
+				$this->error("Unable to remove $file. Please delete it manually, along with this directory: $dir"); 
+			} else {
+				$this->message("Removed $file"); 
+			}
+		} else {
+			$this->message("$file doesn't exist (good)");
+		}
+
+		if(is_dir($dir)) {
+			$this->deleteRecursive($dir); 
+			if(is_dir($dir)) {
+				$this->error("Unable to remove $dir. Please delete it manually (along with everything in it)."); 
+			} else {
+				$this->message("Removed $dir"); 
+			}
+		} else {
+			$this->message("$dir doesn't exist (good)"); 
+		}
+
+		return "<p><a href='../'><strong>Continue</strong></a></p>";
+		
+	}
+
+	/**
+	 * Copy /site/assets/files/ to /site/install/files/ 
+	 *
+	 */
+	public function ___executeCopy() {
+
+		$out = '';
+
+		if(!$this->copyRecursive($this->config->paths->files, $this->exportPath . 'files/')) {
+			$this->error("Error copying {$this->config->urls->files} to {$this->exportUrl}files/"); 
+			return;
+		}
+
+		$this->message("Your site profile is now ready in {$this->exportUrl}"); 
+
+		$out .= "<h2>The site profile has been exported!</h2>";
+
+		if($this->isUpgrade) { 
+			$out .= "<p><strong>If you are upgrading ProcessWire 2.0 to a newer version: we will not be touching your current running site. " . 
+				"Instead we will be installing a new copy of ProcessWire somewhere else and " . 
+				"using the new profile you exported for installation. Once you've confirmed that the new site is fully functional, you may remove or " . 
+				"archive your old ProcessWire 2.0 installation and replace it with your newly installed version. If you have a local development server " . 
+				"you may want to test the installation there before installing to a production server.</p>"; 
+		}
+
+		$out .=	"<h2>Next Steps</h2>" . 
+			"" . 
+			"<p><em>Please copy these instructions, print or keep this window open as you will need these instructions to continue.</em></p>" . 
+			"" . 
+			"<p>1. Download the <a target='_blank' href='http://processwire.com/download/'>latest version of ProcessWire</a> " . 
+			"to another location (whether another site or another directory on this server). If you downloaded it as an archive, then unzip it too.</p>" . 
+			"" . 
+			"<p>2. Before running the installer for the new version of ProcessWire you just downloaded, you will want to replace the site profile " . 
+			"that the new version comes with. To do that, replace these directories on the new installation with the same directories " . 
+			"(located under /{$this->siteDir}/) from your current (this) installation:</p>". 
+			"<pre>" . 
+			"/site-default/install/\n" . 
+			"/site-default/templates/\n" . 
+			"/site-default/modules/\n" . 
+			"</pre>" . 
+			"" . 
+			"<p>3. If you will be installing on the same server you are on now, create a new MySQL database for the new installation. " . 
+			"You don't want to use the same database that the current site is using.</p>" . 
+			"" . 
+			"<p>4. After you've completed the steps above, run the installer for the new site by loading it in your browser and installing as you would any other new copy of ProcessWire. " .
+			"It will install with the site profile you created rather than the one that it comes with.</p>"; 
+
+		$out .= "<h2>When Finished</h2>" . 
+			"<p>It's not good to leave your exported profile lying around as it may be consuming quite a bit of disk space. As a result, I recommend " . 
+			"that you <a href='../remove/'>remove the profile</a> when done with all of the above steps.</p>";
+
+		return $out; 
+		
+	}
+
+	public function ___executeDump() {
+
+		$out = '';
+
+		if($this->input->get->full == 1) {
+			$dumpFile = $this->mysqldump($this->exportPath . "install-full.sql", true); 
+		} else {
+			$dumpFile = $this->mysqldump($this->exportPath . "install.sql", false); 
+		}
+
+		if(!$dumpFile) {
+			$this->error("Error creating SQL dump file in {$this->exportPath}"); 
+			return $out;
+		}
+
+		$this->message("Created $dumpFile"); 
+
+		$out =	"<h2>Your database profile has been exported.</h2>" . 
+			"<p>The next step will copy all of your site's files from /{$this->siteDir}/assets/files/ to {$this->exportUrl}files/. " . 
+			"It will not make any changes to your current site.</p>" . 
+			"<p><a href='../copy/'><strong>Continue with next step</strong></a></p>";
+			
+		return $out; 
+	}
+
+	/**
+	 * Create a mysql dump file
+	 *
+	 * @param string $dumpFile Full path and file to the dump you want to create
+	 * @param bool $fullDump Perform a full dump of everything (default: false)
+	 * @return string|bool Returns the created file on success or false on error
+	 *
+	 */
+	public function mysqldump($dumpFile, $fullDump = false) {
+
+		$fp = fopen($dumpFile,'w+');
+
+		$tables = array();
+		$result = $this->db->query('SHOW TABLES');
+		while($row = $result->fetch_row()) $tables[] = $row[0];
+
+		foreach($tables as $table) {
+
+			if(!$fullDump && in_array($table, $this->excludeTables)) continue; 
+
+			if(!$fullDump && in_array($table, $this->excludeCreateTables)) {
+				$excludeCreate = true; 
+
+			} else {
+				$excludeCreate = false;
+				fwrite($fp, "\nDROP TABLE IF EXISTS `$table`;");
+				$result = $this->db->query("SHOW CREATE TABLE `$table`");
+				$row = $result->fetch_row();
+				fwrite($fp, "\n$row[1];\n");
+			}
+
+			$columns = array();
+			$result = $this->db->query("SHOW COLUMNS FROM `$table`");
+			while($row = $result->fetch_row()) $columns[] = $row[0];
+			$columnsStr = implode(', ', $columns); 
+			$numFields = count($columns); 
+		
+			$sql = "SELECT $columnsStr FROM `$table` "; 	
+			if(!$fullDump && isset($this->tableWhereSQL[$table])) $sql .= "WHERE (" . $this->tableWhereSQL[$table] . ") ";
+			$result = $this->db->query($sql);
+		
+			while($row = $result->fetch_row()) {
+
+				$out = "\nINSERT INTO `$table` ($columnsStr) VALUES(";
+
+				foreach($row as $key => $value) { 
+					$value = $this->db->escape_string($value); 
+					$out .= "'$value', ";
+				}
+
+				$out = rtrim($out, ", ") . ") "; 
+				if($excludeCreate) {
+					$out .= "ON DUPLICATE KEY UPDATE ";
+					foreach($columns as $c) $out .= "$c=VALUES($c), ";
+				}
+
+				$out = rtrim($out, ", ") . ";";
+				fwrite($fp, $out);
+			}
+
+			$result->free();
+			fwrite($fp, "\n");
+		}
+
+		if($this->isUpgrade) {
+			fwrite($fp, "\nUPDATE templates SET data='{\"useRoles\":1,\"slashUrls\":1,\"roles\":[37]}' WHERE name='home';\n"); 
+		}
+		
+		fclose($fp);
+
+		if(is_file($dumpFile)) return $dumpFile; 
+			else return false;
+	}
+
+	protected function mkdir($path) {
+		if(is_dir($path) || mkdir($path)) {
+			if($this->config->chmodDir) chmod($path, octdec($this->config->chmodDir));
+			return true;
+		} else {
+			$this->error("Error creating directory: $path");
+			return false;
+		}
+	}
+
+	protected function copyRecursive($src, $dst) {
+
+		if(substr($src, -1) != '/') $src .= '/';
+		if(substr($dst, -1) != '/') $dst .= '/';
+
+		if(!$this->mkdir($dst)) return false;
+		$dir = opendir($src);
+
+		while(false !== ($file = readdir($dir))) {
+			if($file == '.' || $file == '..') continue;
+			if(is_dir($src . $file)) {
+				$this->copyRecursive($src . $file, $dst . $file);
+			} else {
+				copy($src . $file, $dst . $file);
+				if($this->config->chmodFile) chmod($dst . $file, octdec($this->config->chmodFile));
+			}
+		}
+
+		closedir($dir);
+		return true;
+	}
+
+	protected function deleteRecursive($src) {
+
+		if(substr($src, -1) != '/') $src .= '/';
+		if(!is_dir($src)) throw new WireException("$src is not a dir"); 
+		if(!strpos($src, '/files/')) throw new WireException("$src is not deleteable"); 
+
+		$dir = opendir($src);
+
+		while(false !== ($file = readdir($dir))) {
+			if($file == '.' || $file == '..') continue;
+			if(is_dir($src . $file)) {
+				$this->deleteRecursive($src . $file);
+			} else {
+				unlink($src . $file);
+			}
+		}
+
+		closedir($dir);
+		rmdir($src); 
+		return true;
+	}
+
+	protected function profileExists() {
+
+		$file = $this->exportPath . 'install.sql';
+		$dir = $this->exportPath . '/files'; 
+
+		if(is_file($file)) {
+			$time = filemtime($file);
+			return $time ? $time : time(); 
+		}
+
+		if(is_dir($this->exportPath . "files")) {
+			$time = filemtime($dir); 
+			return $time ? $time : time(); 
+		}
+
+		return false;
+	}
+
+	/**
+	 * Install the module and create the page where it lives
+	 *
+	 */
+	public function ___install() {
+
+		$page = $this->getInstalledPage();
+		$this->message("Installed to {$page->path}"); 
+		if($page->parent->name == 'setup') $this->message("Click to your 'Setup' page to start using this module."); 
+	}
+
+	/**
+	 * Return the page that this Process is installed on 
+	 *
+	 */
+	protected function getInstalledPage() {
+
+		$admin = $this->pages->get($this->config->adminRootPageID); 
+		$parent = $admin->child("name=setup"); 
+		if(!$parent->id) $parent = $admin;
+		$page = $parent->child("name=" . self::adminPageName); 
+
+		if(!$page->id) { 	
+			$page = new Page();
+			$page->parent = $parent; 
+			$page->template = $this->templates->get('admin');
+			$page->name = self::adminPageName; 
+			$page->title = "Export Site Profile";
+			$page->process = $this; 
+			$page->sort = $parent->numChildren;
+			$page->save();
+		}
+
+		return $page; 	
+	}
+
+	/**
+	 * Uninstall the module
+	 *
+	 */
+	public function ___uninstall() {
+		$page = $this->getInstalledPage();	
+		if($page->id) { 
+			$this->message("Removed {$page->path}");
+			$this->pages->delete($page); 
+		}
+	}
+
+
+}
+
