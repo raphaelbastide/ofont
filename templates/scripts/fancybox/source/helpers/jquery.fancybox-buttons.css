@@ -42,6 +42,7 @@
 }
 
 #fancybox-buttons a {
+	border-bottom: 0;
 	display: block;
 	width: 30px;
 	height: 30px;
@@ -51,10 +52,6 @@
 	background-repeat: no-repeat;
 	outline: none;
 	opacity: 0.8;
-}
-
-#fancybox-buttons a:hover {
-	opacity: 1;
 }
 
 #fancybox-buttons a.btnPrev {

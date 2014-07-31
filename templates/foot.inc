@@ -33,7 +33,7 @@
 		        },
 		        helpers:  {
 			        title : {
-			            type : 'inside'
+			            type : 'outside'
 		        	}
 		        }
 		    });
