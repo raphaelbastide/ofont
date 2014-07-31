@@ -89,18 +89,24 @@ if (!$page->draft){
     echo "</ul></li>";
   }
 
-// Used in
+// In use
 
-  $used_in = $page->used_in;
-  if ($used_in){
-    echo "<li><ul class='used_in'>";
-    echo "Used in:";
-    echo "<li>{$used_in}</li>";
+  $in_use = $page->in_use;
+  if ($in_use){
+    echo "<li><ul class='in_use'>";
+    echo "In use:";
+      for ($i = 0; $i < count($in_use); $i++) {
+        echo "<li><figure><a class='fancybox fancybox2' data-title-id='legende{$i}' rel='group' href='{$in_use->eq($i)->url}'><img class='thumbnail' src='{$in_use->eq($i)->getThumb('thumbnail')}' alt='' /></a>";
+        $description = $in_use->eq($i)->description;
+        $description = ereg_replace("[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]","<a href=\"\\0\">(url)</a>", $description);
+        echo "<figcaption id='legende{$i}' class='hidden'>{$description}</figcaption>";
+        echo "</figure></li>";
+      }
     echo "</ul></li>";
   }
 
   if($page->editable()) {
-      echo "<li><a class='nav' id='editpage' href='{$config->urls->admin}page/edit/?id={$page->id}'>Edit</a></li>";
+      echo "<li class='edit'><a class='nav' id='editpage' href='{$config->urls->admin}page/edit/?id={$page->id}'>Edit</a></li>";
   }
 
   echo "</ul>"; // END .meta

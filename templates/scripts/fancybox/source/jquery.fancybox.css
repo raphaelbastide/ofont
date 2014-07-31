@@ -42,7 +42,7 @@
   font-weight: normal;
   font-style: italic;
 }
-  
+
 .fancybox-wrap,
 .fancybox-skin,
 .fancybox-outer,
@@ -70,12 +70,8 @@
 
 .fancybox-skin {
 	position: relative;
-	background: white;
 	color: #444;
 	text-shadow: none;
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	border-radius: 20px;
 }
 
 .fancybox-opened {
@@ -117,7 +113,8 @@
 }
 
 #fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-	background-image: url('fancybox_sprite.png');
+	background-image: url('fancybox_sprite.svg');
+  border-bottom: 0;
 }
 
 #fancybox-loading {
@@ -139,13 +136,17 @@
 }
 
 .fancybox-close {
-	position: absolute;
-	top: -18px;
-	right: -18px;
+	position: fixed;
+	top: 20px;
+	right: 20px;
 	width: 36px;
 	height: 36px;
 	cursor: pointer;
 	z-index: 8040;
+}
+
+.fancybox-close:hover {
+    b
 }
 
 .fancybox-nav {
@@ -180,14 +181,12 @@
 }
 
 .fancybox-prev span {
-	content: '➡';
-	color:white;
-	left: 10px;
+	left: -30px;
 	background-position: 0 -36px;
 }
 
 .fancybox-next span {
-	right: 10px;
+	right: -30px;
 	background-position: 0 -72px;
 }
 
@@ -236,6 +235,7 @@
 }
 
 .fancybox-lock .fancybox-overlay {
+  background-color: rgba(0,0,0,0.9);
 	overflow: auto;
 	overflow-y: scroll;
 }
@@ -244,11 +244,12 @@
 
 .fancybox-title {
 	visibility: hidden;
-  	font-family: 'dejavu_sans_condensed';
+  font-family: 'dejavu_sans_condensed';
 	position: relative;
 	text-shadow: none;
 	z-index: 8050;
 	font-size: 1.2em;
+  text-align: center;
 }
 
 .fancybox-opened .fancybox-title {
@@ -276,7 +277,7 @@
 
 .fancybox-title-outside-wrap {
 	position: relative;
-	margin-top: 10px;
+	margin-top: 5px;
 	color: #fff;
 }
 
@@ -300,8 +301,9 @@
 	   only screen and (min-device-pixel-ratio: 1.5){
 
 	#fancybox-loading, .fancybox-close, .fancybox-prev span, .fancybox-next span {
-		background-image: url('fancybox_sprite@2x.png');
+		background-image: url('fancybox_sprite@2x.svg');
 		background-size: 44px 152px; /*The size of the normal image, half the size of the hi-res image*/
+    border-bottom: 0;
 	}
 
 	#fancybox-loading div {
