@@ -370,6 +370,15 @@ header .fullh[type=range] {
 .typeface .meta li li {
   padding-left: 15px;
 }
+.typeface .meta li img {
+  width: 50%;
+  float: left;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+.typeface .meta li figcaption.hidden {
+  display: none;
+}
 .typeface .meta h2 {
   color: #808080;
 }
