@@ -170,15 +170,33 @@ body .views {
 body .font input {
   color: #eee;
 }
-.fsBox {
+body .fsBox {
   background: #000;
   color: #eee;
 }
-.fsBox input {
+body .fsBox input {
   color: inherit;
 }
-.meta {
+body .meta {
   color: #d3d3d3;
+}
+body .fontdemo1 input::selection,
+body .fontdemo2 input::selection {
+  color: inherit;
+  background: #00f;
+}
+body .fontdemo1 input::-moz-selection,
+body .fontdemo2 input::-moz-selection {
+  color: inherit;
+  background: #00f;
+}
+body ::selection {
+  background: #eee;
+  color: #000;
+}
+body ::-moz-selection {
+  background: #eee;
+  color: #000;
 }
 body.bright {
   color: #000;
@@ -203,6 +221,24 @@ body.bright .fsBox input {
 }
 body.bright .meta {
   color: #808080;
+}
+body.bright .fontdemo1 input::selection,
+body.bright .fontdemo2 input::selection {
+  color: inherit;
+  background: #ff0;
+}
+body.bright .fontdemo1 input::-moz-selection,
+body.bright .fontdemo2 input::-moz-selection {
+  color: inherit;
+  background: #ff0;
+}
+body.bright ::selection {
+  background: #000;
+  color: #fff;
+}
+body.bright ::-moz-selection {
+  background: #000;
+  color: #fff;
 }
 body {
   font-family: dejavu_sans_condensed;
@@ -331,20 +367,8 @@ header .fullh[type=range] {
 .typeface .meta li.fontname {
   margin-bottom: 10px;
 }
-.typeface .meta li.edit {
-  clear: both;
-}
 .typeface .meta li li {
   padding-left: 15px;
-}
-.typeface .meta li img {
-  width: 50%;
-  float: left;
-  padding-right: 10px;
-  padding-bottom: 10px;
-}
-.typeface .meta li figcaption.hidden {
-  display: none;
 }
 .typeface .meta h2 {
   color: #808080;
@@ -368,16 +392,6 @@ header .fullh[type=range] {
   width: 100%;
   background: transparent;
   border: 0;
-}
-.typeface .fontlist .font .fontdemo1 input::selection,
-.typeface .fontlist .font .fontdemo2 input::selection {
-  color: inherit;
-  background: #ff0;
-}
-.typeface .fontlist .font .fontdemo1 input::-moz-selection,
-.typeface .fontlist .font .fontdemo2 input::-moz-selection {
-  color: inherit;
-  background: #ff0;
 }
 .typeface .fontlist .font .fontdemo1 input {
   font-size: 80px;
@@ -518,14 +532,6 @@ input[type=text] {
 button::-moz-focus-inner,
 input[type="button"]::-moz-focus-inner {
   border: none;
-}
-::selection {
-  background: #000;
-  color: #fff;
-}
-::-moz-selection {
-  background: #000;
-  color: #fff;
 }
 @media (max-width: 1200px) {
   header {

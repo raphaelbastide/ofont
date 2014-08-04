@@ -4,6 +4,7 @@
 fontcol = #eee
 bgcol = #000
 metacol = lightgray
+fontselectcol = #0000ff
 
 body
   color fontcol
@@ -15,19 +16,33 @@ body
     color fontcol
   .font input
     color fontcol
-.fsBox
-  background bgcol
-  color fontcol
-  input
-    color inherit
-.meta
-  color metacol
+  .fsBox
+    background bgcol
+    color fontcol
+    input
+      color inherit
+  .meta
+    color metacol
+  .fontdemo1 input, .fontdemo2 input
+    &::selection
+      color inherit
+      background fontselectcol
+    &::-moz-selection
+      color inherit
+      background fontselectcol
+  ::selection
+    background fontcol
+    color bgcol
+  ::-moz-selection
+    background fontcol
+    color bgcol
 
 // Bright mode
 
 fontcol = #000
 bgcol = #FFF
 metacol = gray
+fontselectcol = #ffff00
 
 body.bright
   color fontcol
@@ -46,3 +61,16 @@ body.bright
       color inherit
   .meta
     color metacol
+  .fontdemo1 input, .fontdemo2 input
+    &::selection
+      color inherit
+      background fontselectcol
+    &::-moz-selection
+      color inherit
+      background fontselectcol
+  ::selection
+    background fontcol
+    color bgcol
+  ::-moz-selection
+    background fontcol
+    color bgcol
