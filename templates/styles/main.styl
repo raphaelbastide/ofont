@@ -3,7 +3,10 @@
 @import 'icons.css'
 @import 'colormodes.styl'
 
-m = 50px
+m = 60px
+h = 60px
+ht = 300px
+column = 23.5%
 unicol = rgba(128, 128, 128, 0.29)
 
 body
@@ -22,17 +25,21 @@ body
       border 2px solid
       padding .1em .3em
       vertical-align top
+  &.taxonomies
+    .content
+      margin-top ht
 
 // Icons
 
 .icon
-  font-size 20px
+  font-size 18px
 button.icon
   border none
   background unicol
   padding 5px 4px
   vertical-align middle
   color inherit
+  cursor pointer
   &:active
     background gray
   &:focus
@@ -41,7 +48,7 @@ button.icon
 header
   position fixed
   width 100%
-  height 60px
+  height h
   left 0
   top 0
   padding 0 m
@@ -50,7 +57,7 @@ header
   .topnav
     float left
     height 100%
-    width 20%
+    width column
     a.logo
       display block
       border none
@@ -59,37 +66,81 @@ header
         font-size 32px
         padding-left 0
   #search_form
+    display flex
+    flex-flow row nowrap
     height 100%
+    width column
     float left
     #search_query
+      flex 1 1 auto
       color inherit
       margin-right 1px
       font-size 2em
-      width 10em
+    #search_submit
+      flex 0 0 h - 10
   .views
     height 100%
+    width column
     float right
-    .font-size
-      .valuebox
-        display none
-      input
-        width 100px
     ul
+      display flex
+      flex-flow row nowrap
       height 100%
       li
-        display block
         height 100%
-        float left
         padding 0 1px 0 0
+        flex 0 0 h - 10
+        .icon
+          width 100%
+      .font-sizer
+        flex 1 1 auto
+        height 100%
+        .font-size
+          display flex
+          flex-flow row nowrap
+          height 100%
+          .icon
+            flex 0 0 60px
+            text-align center
+            margin-top 20px
+          input
+            flex 1 1 auto
+            min-width 100px
+          .valuebox
+            display none
   .fullh
     height 100%
     vertical-align middle
-    padding-left 30px
-    padding-right 30px
     &[type=range]
       padding 0
+  .showTaxonomies
+    display none
+    position absolute
+    width 103%
+    height ht
+    left 0
+    top h - 1
+    border 1px solid rgba(128, 128, 128, 0.29)
+    line-height 1.6em
+    vertical-align top
+    .colonne
+      height 298px
+      padding 30px m
+      display inline-block
+      width column
+      overflow-y auto
+      ul
+        position relative
+        li
+          padding-left 15px
+        .pad
+          position absolute
+          top 100%
+          height 30px
+          width 1px
+
 .content
-  padding-top 80px
+  padding-top h
   h1
     font-size 3em
     margin m 0 m m
@@ -106,9 +157,10 @@ header
   border-bottom 1px solid unicol
   .meta
     float left
-    width 20%
+    width column
     display block
     line-height 25px
+    padding-right m
     //border-right 1px solid unicol
     &>li
       margin-bottom 10px
@@ -126,9 +178,11 @@ header
         display none
     h2
       color metacol
+    .edit
+      clear both
   .fontlist
     float left
-    width 80%
+    width 76%
     .font
       transition all 0.1s ease-out
       margin 0 0 10px 0
@@ -268,7 +322,6 @@ input[type="button"]::-moz-focus-inner {
 
 @media (max-width: 1200px)
   header
-    height 50px
     .fullh
       padding-right 10px
       padding-left 10px

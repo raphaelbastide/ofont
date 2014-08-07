@@ -180,6 +180,10 @@ body .fsBox input {
 body .meta {
   color: #d3d3d3;
 }
+body .showTaxonomies {
+  color: #d3d3d3;
+  background: #000;
+}
 body .fontdemo1 input::selection,
 body .fontdemo2 input::selection {
   color: inherit;
@@ -222,6 +226,10 @@ body.bright .fsBox input {
 body.bright .meta {
   color: #808080;
 }
+body.bright .showTaxonomies {
+  color: #808080;
+  background: #fff;
+}
 body.bright .fontdemo1 input::selection,
 body.bright .fontdemo2 input::selection {
   color: inherit;
@@ -258,8 +266,11 @@ body .notice .introbtn {
   padding: 0.1em 0.3em;
   vertical-align: top;
 }
+body.taxonomies .content {
+  margin-top: 300px;
+}
 .icon {
-  font-size: 20px;
+  font-size: 18px;
 }
 button.icon {
   border: none;
@@ -267,6 +278,7 @@ button.icon {
   padding: 5px 4px;
   vertical-align: middle;
   color: inherit;
+  cursor: pointer;
 }
 button.icon:active {
   background: #808080;
@@ -280,14 +292,14 @@ header {
   height: 60px;
   left: 0;
   top: 0;
-  padding: 0 50px;
+  padding: 0 60px;
   z-index: 5;
   border-bottom: 1px solid rgba(128,128,128,0.29);
 }
 header .topnav {
   float: left;
   height: 100%;
-  width: 20%;
+  width: 23.5%;
 }
 header .topnav a.logo {
   display: block;
@@ -299,57 +311,111 @@ header .topnav a.logo .icon {
   padding-left: 0;
 }
 header #search_form {
+  display: flex;
+  flex-flow: row nowrap;
   height: 100%;
+  width: 23.5%;
   float: left;
 }
 header #search_form #search_query {
+  flex: 1 1 auto;
   color: inherit;
   margin-right: 1px;
   font-size: 2em;
-  width: 10em;
+}
+header #search_form #search_submit {
+  flex: 0 0 50px;
 }
 header .views {
   height: 100%;
+  width: 23.5%;
   float: right;
 }
-header .views .font-size .valuebox {
-  display: none;
-}
-header .views .font-size input {
-  width: 100px;
-}
 header .views ul {
+  display: flex;
+  flex-flow: row nowrap;
   height: 100%;
 }
 header .views ul li {
-  display: block;
   height: 100%;
-  float: left;
   padding: 0 1px 0 0;
+  flex: 0 0 50px;
+}
+header .views ul li .icon {
+  width: 100%;
+}
+header .views ul .font-sizer {
+  flex: 1 1 auto;
+  height: 100%;
+}
+header .views ul .font-sizer .font-size {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100%;
+}
+header .views ul .font-sizer .font-size .icon {
+  flex: 0 0 60px;
+  text-align: center;
+  margin-top: 20px;
+}
+header .views ul .font-sizer .font-size input {
+  flex: 1 1 auto;
+  min-width: 100px;
+}
+header .views ul .font-sizer .font-size .valuebox {
+  display: none;
 }
 header .fullh {
   height: 100%;
   vertical-align: middle;
-  padding-left: 30px;
-  padding-right: 30px;
 }
 header .fullh[type=range] {
   padding: 0;
 }
+header .showTaxonomies {
+  display: none;
+  position: absolute;
+  width: 103%;
+  height: 300px;
+  left: 0;
+  top: 59px;
+  border: 1px solid rgba(128,128,128,0.29);
+  line-height: 1.6em;
+  vertical-align: top;
+}
+header .showTaxonomies .colonne {
+  height: 298px;
+  padding: 30px 60px;
+  display: inline-block;
+  width: 23.5%;
+  overflow-y: auto;
+}
+header .showTaxonomies .colonne ul {
+  position: relative;
+}
+header .showTaxonomies .colonne ul li {
+  padding-left: 15px;
+}
+header .showTaxonomies .colonne ul .pad {
+  position: absolute;
+  top: 100%;
+  height: 30px;
+  width: 1px;
+}
 .content {
-  padding-top: 80px;
+  padding-top: 60px;
 }
 .content h1 {
   font-size: 3em;
-  margin: 50px 0 50px 50px;
+  margin: 60px 0 60px 60px;
 }
 .notice {
   font-size: 40px;
   line-height: 50px;
-  padding: 0 50px 40px 50px;
+  padding: 0 60px 40px 60px;
 }
 .typeface {
-  padding: 50px 50px;
+  padding: 60px 60px;
   clear: both;
   overflow: hidden;
   line-height: 1.6em;
@@ -357,9 +423,10 @@ header .fullh[type=range] {
 }
 .typeface .meta {
   float: left;
-  width: 20%;
+  width: 23.5%;
   display: block;
   line-height: 25px;
+  padding-right: 60px;
 }
 .typeface .meta>li {
   margin-bottom: 10px;
@@ -382,9 +449,12 @@ header .fullh[type=range] {
 .typeface .meta h2 {
   color: #808080;
 }
+.typeface .meta .edit {
+  clear: both;
+}
 .typeface .fontlist {
   float: left;
-  width: 80%;
+  width: 76%;
 }
 .typeface .fontlist .font {
   transition: all 0.1s ease-out;
@@ -450,14 +520,14 @@ header .fullh[type=range] {
   background: linear-gradient(to right, rgba(238,238,238,0) 0%, #eee 100%);
 }
 .page-content {
-  padding: 50px 50px;
+  padding: 60px 60px;
   max-width: 800px;
   width: 100%;
 }
 .page-content p {
   font-size: 1.5em;
   line-height: 1.3em;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 body.about .page-content {
   background: #ff0;
@@ -484,12 +554,12 @@ body.about .page-content {
 .fsBox .close-fullscreen {
   font-size: 10em;
   position: absolute;
-  top: 25px;
-  right: 25px;
+  top: 30px;
+  right: 30px;
   cursor: pointer;
 }
 .pagination {
-  padding: 100px 0;
+  padding: 120px 0;
   clear: both;
   font-size: 2em;
   border-bottom: 1px solid rgba(128,128,128,0.29);
@@ -518,7 +588,7 @@ body.about .page-content {
   color: rgba(128,128,128,0.29);
 }
 body>footer {
-  padding: 50px 0;
+  padding: 60px 0;
 }
 body>footer p {
   font-size: 1em;
@@ -543,9 +613,6 @@ input[type="button"]::-moz-focus-inner {
   border: none;
 }
 @media (max-width: 1200px) {
-  header {
-    height: 50px;
-  }
   header .fullh {
     padding-right: 10px;
     padding-left: 10px;

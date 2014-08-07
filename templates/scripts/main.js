@@ -43,9 +43,9 @@
   }
   intro(Cookies.get('intro') === '1')();
   if ($('.notice').length){
-    q('.notice .introbtn').onclick = intro();    
+    q('.notice .introbtn').onclick = intro();
   }
-  
+
   // Colors
   function setColors(brightMode) {
     return function() {
@@ -86,20 +86,20 @@
   fontSizeSelector.addEventListener('input', function(e) {
     updateSize(e.target.value);
   });
-  
+
   // Fullscreen
   var fs = false;
 
   function closeFS(){
     $('.fsBox').remove();
-    fs = !fs    
+    fs = !fs
   }
   $('.fullscreen').click(function(){
     var button = $(this),
         font = button.parent('.legend').parent('.font'),
         input = font.children('.fontdemo1'),
         fsBox = $("<div class='fsBox'><div class='close-fullscreen'>×</div></div>");
-    if (fs === false){ 
+    if (fs === false){
       fsBox.appendTo(font);
       input.clone().appendTo(fsBox);
       fs = !fs;
@@ -114,17 +114,59 @@
     var code = e.keyCode || e.which;
     if ( code == 27 ) {
       closeFS();
-    }    
+    }
   });
-  
+
   // Font name cleaning
-  
   var fontNames = $('.legend a');
   fontNames.each(function(){
     $(this).html($(this).html().replace(/_/g, " ")
                               .replace(/-/g, " ")
                               .replace(/webfont/g, ""));
   })
-  
-}());
 
+  // Toggle display
+  function showhide(handle, shown, displayClass, clickOut){
+    handle.click(function(){
+      if ($('body').hasClass(displayClass)){
+        shown.hide();
+        $('body').removeClass(displayClass);
+      } else {
+        shown.show();
+        $('body').addClass(displayClass);
+      }
+    });
+    clickOut.click(function(){
+      if ($('body').hasClass(displayClass)){
+        shown.hide();
+        $('body').removeClass(displayClass);
+      }
+    })
+  }
+
+  // Toggle taxonomies
+  showhide($('.icon-taxonomy'),$('.showTaxonomies'), 'taxonomies', $('.content'));
+
+  // Fancy Box
+  $(document).ready(function() {
+    $(".fancybox")
+      .attr('rel', 'gallery')
+      .fancybox({
+          beforeLoad: function() {
+              var el, id = $(this.element).data('title-id');
+              if (id) {
+                el = $('#' + id);
+                if (el.length) {
+                    this.title = el.html();
+                }
+              }
+          },
+          helpers:  {
+            title : {
+                type : 'outside'
+            }
+          }
+      });
+  });
+
+}());
