@@ -20,7 +20,7 @@ Ofont is a CMS for typeface collections. You can visit an up to date copy of ofo
 
 ## Install
 
-Ofont is based on ProcessWire, those information will help you te install it.
+Ofont is based on ProcessWire, those information will help you to install it.
 
 1. Download the latest version of [ProcessWire](http://processwire.com/) to another location (whether another site or another directory on this server). If you downloaded it as an archive, then unzip it too.
 
