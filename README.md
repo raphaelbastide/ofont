@@ -6,7 +6,7 @@ Ofont is a CMS for typeface collections. You can visit an up to date copy of ofo
 
 ## Features
 
-- Tags, authors, licenses, related fonts field and more.
+- Tags, authors, licenses, related fonts field and more
 - Extendable fields for your custom classification (text, image, PDF…)
 - Upload webfont archive from [Fontsquirrel generator](http://www.fontsquirrel.com/tools/webfont-generator)
 - Live text preview
@@ -14,12 +14,13 @@ Ofont is a CMS for typeface collections. You can visit an up to date copy of ofo
 - Font size slider
 - Light / dark mode toggle
 - Large / grid view for text preview
+- List and browse taxonomies
 - Fullscreen preview mode
 - Search form
 
 ## Install
 
-Ofont is based on ProcessWire, those information will help you te install it.
+Ofont is based on ProcessWire, those information will help you to install it.
 
 1. Download the latest version of [ProcessWire](http://processwire.com/) to another location (whether another site or another directory on this server). If you downloaded it as an archive, then unzip it too.
 
