@@ -1,0 +1,775 @@
+{
+    "admin": {
+        "id": 2,
+        "name": "admin",
+        "fieldgroups_id": "admin",
+        "flags": 8,
+        "cache_time": 0,
+        "useRoles": 1,
+        "editRoles": [
+
+        ],
+        "addRoles": [
+
+        ],
+        "createRoles": [
+
+        ],
+        "childrenTemplatesID": 0,
+        "sortfield": "",
+        "noChildren": "",
+        "noParents": "",
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+            "admin"
+        ],
+        "allowPageNum": 1,
+        "allowChangeUser": 0,
+        "redirectLogin": 23,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 0,
+        "pageClass": "",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 1,
+        "noMove": 0,
+        "noTrash": 0,
+        "noSettings": 0,
+        "noChangeTemplate": 0,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 0,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "roles": [
+
+        ],
+        "fieldgroupFields": [
+            "title",
+            "process"
+        ],
+        "fieldgroupContexts": {
+            "title": [
+
+            ],
+            "process": [
+
+            ]
+        }
+    },
+    "author": {
+        "id": 44,
+        "name": "author",
+        "fieldgroups_id": "author",
+        "flags": 0,
+        "cache_time": 0,
+        "useRoles": 0,
+        "childrenTemplatesID": 0,
+        "sortfield": "",
+        "noChildren": "",
+        "noParents": "",
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+
+        ],
+        "allowPageNum": 0,
+        "allowChangeUser": 0,
+        "redirectLogin": 0,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 0,
+        "pageClass": "",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 0,
+        "noMove": 0,
+        "noTrash": 0,
+        "noSettings": 0,
+        "noChangeTemplate": 0,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 0,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "fieldgroupFields": [
+            "title",
+            "author_url"
+        ],
+        "fieldgroupContexts": {
+            "title": [
+
+            ],
+            "author_url": [
+
+            ]
+        }
+    },
+    "basic-page": {
+        "id": 29,
+        "name": "basic-page",
+        "fieldgroups_id": "basic-page",
+        "flags": 0,
+        "cache_time": 0,
+        "useRoles": 0,
+        "childrenTemplatesID": 0,
+        "sortfield": "",
+        "noChildren": "",
+        "noParents": "",
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+
+        ],
+        "allowPageNum": 0,
+        "allowChangeUser": 0,
+        "redirectLogin": 0,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 0,
+        "pageClass": "",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 0,
+        "noMove": 0,
+        "noTrash": 0,
+        "noSettings": 0,
+        "noChangeTemplate": 0,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 0,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "fieldgroupFields": [
+            "title",
+            "body"
+        ],
+        "fieldgroupContexts": {
+            "title": [
+
+            ],
+            "body": [
+
+            ]
+        }
+    },
+    "font": {
+        "id": 43,
+        "name": "font",
+        "fieldgroups_id": "font",
+        "flags": 0,
+        "cache_time": 60,
+        "useRoles": 0,
+        "childrenTemplatesID": 0,
+        "sortfield": "-created",
+        "noChildren": "",
+        "noParents": "",
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+
+        ],
+        "allowPageNum": 0,
+        "allowChangeUser": 0,
+        "redirectLogin": 0,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 0,
+        "pageClass": "",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 0,
+        "noMove": 0,
+        "noTrash": 0,
+        "noSettings": 0,
+        "noChangeTemplate": 0,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 0,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "fieldgroupFields": [
+            "title",
+            "download_url",
+            "draft",
+            "related_fonts",
+            "authors",
+            "keywords",
+            "comments",
+            "license",
+            "webfont_archive",
+            "in_use"
+        ],
+        "fieldgroupContexts": {
+            "title": {
+                "columnWidth": 60
+            },
+            "download_url": [
+
+            ],
+            "draft": [
+
+            ],
+            "related_fonts": [
+
+            ],
+            "authors": [
+
+            ],
+            "keywords": {
+                "columnWidth": 34
+            },
+            "comments": {
+                "columnWidth": 41,
+                "label": "comments"
+            },
+            "license": {
+                "columnWidth": 28
+            },
+            "webfont_archive": [
+
+            ],
+            "in_use": [
+
+            ]
+        }
+    },
+    "home": {
+        "id": 1,
+        "name": "home",
+        "fieldgroups_id": "home",
+        "flags": 0,
+        "cache_time": 0,
+        "useRoles": 1,
+        "editRoles": [
+
+        ],
+        "addRoles": [
+
+        ],
+        "createRoles": [
+
+        ],
+        "childrenTemplatesID": 0,
+        "sortfield": "",
+        "noChildren": "",
+        "noParents": 1,
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+
+        ],
+        "allowPageNum": 1,
+        "allowChangeUser": 0,
+        "redirectLogin": 0,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 0,
+        "pageClass": "",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 0,
+        "noMove": 0,
+        "noTrash": 0,
+        "noSettings": 0,
+        "noChangeTemplate": 0,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 0,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "roles": [
+            "guest"
+        ],
+        "fieldgroupFields": [
+            "title",
+            "body"
+        ],
+        "fieldgroupContexts": {
+            "title": [
+
+            ],
+            "body": [
+
+            ]
+        }
+    },
+    "keyword": {
+        "id": 46,
+        "name": "keyword",
+        "fieldgroups_id": "keyword",
+        "flags": 0,
+        "cache_time": 0,
+        "useRoles": 0,
+        "childrenTemplatesID": 0,
+        "sortfield": "",
+        "noChildren": "",
+        "noParents": "",
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+
+        ],
+        "allowPageNum": 0,
+        "allowChangeUser": 0,
+        "redirectLogin": 0,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 0,
+        "pageClass": "",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 0,
+        "noMove": 0,
+        "noTrash": 0,
+        "noSettings": 0,
+        "noChangeTemplate": 0,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 0,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "fieldgroupFields": [
+            "title"
+        ],
+        "fieldgroupContexts": {
+            "title": [
+
+            ]
+        }
+    },
+    "license": {
+        "id": 45,
+        "name": "license",
+        "fieldgroups_id": "license",
+        "flags": 0,
+        "cache_time": 0,
+        "useRoles": 0,
+        "childrenTemplatesID": 0,
+        "sortfield": "",
+        "noChildren": "",
+        "noParents": "",
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+
+        ],
+        "allowPageNum": 0,
+        "allowChangeUser": 0,
+        "redirectLogin": 0,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 0,
+        "pageClass": "",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 0,
+        "noMove": 0,
+        "noTrash": 0,
+        "noSettings": 0,
+        "noChangeTemplate": 0,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 0,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "fieldgroupFields": [
+            "title",
+            "license_url"
+        ],
+        "fieldgroupContexts": {
+            "title": [
+
+            ],
+            "license_url": [
+
+            ]
+        }
+    },
+    "permission": {
+        "id": 5,
+        "name": "permission",
+        "fieldgroups_id": "permission",
+        "flags": 8,
+        "cache_time": 0,
+        "useRoles": 0,
+        "childrenTemplatesID": 0,
+        "sortfield": "",
+        "noChildren": 1,
+        "noParents": "",
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+            "admin"
+        ],
+        "allowPageNum": 0,
+        "allowChangeUser": 0,
+        "redirectLogin": 0,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 1,
+        "pageClass": "Permission",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 1,
+        "noMove": 1,
+        "noTrash": 1,
+        "noSettings": 1,
+        "noChangeTemplate": 1,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 1,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "fieldgroupFields": [
+            "title"
+        ],
+        "fieldgroupContexts": {
+            "title": [
+
+            ]
+        }
+    },
+    "role": {
+        "id": 4,
+        "name": "role",
+        "fieldgroups_id": "role",
+        "flags": 8,
+        "cache_time": 0,
+        "useRoles": 0,
+        "childrenTemplatesID": 0,
+        "sortfield": "",
+        "noChildren": 1,
+        "noParents": "",
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+            "admin"
+        ],
+        "allowPageNum": 0,
+        "allowChangeUser": 0,
+        "redirectLogin": 0,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 0,
+        "pageClass": "Role",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 1,
+        "noMove": 1,
+        "noTrash": 1,
+        "noSettings": 1,
+        "noChangeTemplate": 1,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 1,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "fieldgroupFields": [
+            "permissions"
+        ],
+        "fieldgroupContexts": {
+            "permissions": [
+
+            ]
+        }
+    },
+    "search": {
+        "id": 26,
+        "name": "search",
+        "fieldgroups_id": "search",
+        "flags": 0,
+        "cache_time": 0,
+        "useRoles": 0,
+        "childrenTemplatesID": 0,
+        "sortfield": "",
+        "noChildren": 1,
+        "noParents": 1,
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+
+        ],
+        "allowPageNum": 1,
+        "allowChangeUser": 0,
+        "redirectLogin": 0,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 0,
+        "pageClass": "",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 0,
+        "noMove": 0,
+        "noTrash": 0,
+        "noSettings": 0,
+        "noChangeTemplate": 0,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 0,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "fieldgroupFields": [
+            "title"
+        ],
+        "fieldgroupContexts": {
+            "title": [
+
+            ]
+        }
+    },
+    "sitemap": {
+        "id": 34,
+        "name": "sitemap",
+        "fieldgroups_id": "sitemap",
+        "flags": 0,
+        "cache_time": 0,
+        "useRoles": 0,
+        "childrenTemplatesID": 0,
+        "sortfield": "",
+        "noChildren": 1,
+        "noParents": 1,
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+
+        ],
+        "allowPageNum": 0,
+        "allowChangeUser": 0,
+        "redirectLogin": 23,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 0,
+        "pageClass": "",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 0,
+        "noMove": 0,
+        "noTrash": 0,
+        "noSettings": 0,
+        "noChangeTemplate": 0,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 0,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "fieldgroupFields": [
+            "title"
+        ],
+        "fieldgroupContexts": {
+            "title": [
+
+            ]
+        }
+    },
+    "user": {
+        "id": 3,
+        "name": "user",
+        "fieldgroups_id": "user",
+        "flags": 8,
+        "cache_time": 0,
+        "useRoles": 1,
+        "editRoles": [
+
+        ],
+        "addRoles": [
+
+        ],
+        "createRoles": [
+
+        ],
+        "childrenTemplatesID": 0,
+        "sortfield": "",
+        "noChildren": 1,
+        "noParents": "",
+        "childTemplates": [
+
+        ],
+        "parentTemplates": [
+            "admin"
+        ],
+        "allowPageNum": 0,
+        "allowChangeUser": 0,
+        "redirectLogin": 0,
+        "urlSegments": 0,
+        "https": 0,
+        "slashUrls": 1,
+        "altFilename": "",
+        "guestSearchable": 0,
+        "pageClass": "User",
+        "childNameFormat": "",
+        "pageLabelField": "",
+        "noGlobal": 1,
+        "noMove": 1,
+        "noTrash": 1,
+        "noSettings": 1,
+        "noChangeTemplate": 1,
+        "noShortcut": 0,
+        "noUnpublish": 0,
+        "nameContentTab": 1,
+        "noCacheGetVars": "",
+        "noCachePostVars": "",
+        "useCacheForUsers": 0,
+        "cacheExpire": 0,
+        "cacheExpirePages": [
+
+        ],
+        "label": "",
+        "tags": "",
+        "titleNames": 0,
+        "_exportMode": true,
+        "roles": [
+
+        ],
+        "fieldgroupFields": [
+            "pass",
+            "email",
+            "roles"
+        ],
+        "fieldgroupContexts": {
+            "pass": [
+
+            ],
+            "email": [
+
+            ],
+            "roles": [
+
+            ]
+        }
+    }
+}

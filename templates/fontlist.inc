@@ -2,7 +2,7 @@
 
 <?php
 
-$fontlist = $fonts->find("id>1, limit=6, draft=0, sort=-created");
+$fontlist = $fonts->find("id>1, limit=6, draft=0, sort=name");
 $pagination = $fontlist->renderPager(array(
   'nextItemLabel' => "▶",
   'previousItemLabel' => "◀",
