@@ -221,29 +221,3 @@ $config->dbLowercaseTables = true;
  *
  */
 
-
-/**
- * Installer: Database Configuration
- * 
- */
-$config->dbHost = 'localhost';
-$config->dbName = 'ofont';
-$config->dbUser = 'root';
-$config->dbPass = '';
-$config->dbPort = '3306';
-
-/**
- * Installer: User Authentication Salt 
- * 
- * Must be retained if you migrate your site from one server to another
- * 
- */
-$config->userAuthSalt = '9017ebea10663de0e79ec04c3a440f48'; 
-
-/**
- * Installer: File Permission Configuration
- * 
- */
-$config->chmodDir = '0755'; // permission for directories created by ProcessWire
-$config->chmodFile = '0644'; // permission for files created by ProcessWire 
-
