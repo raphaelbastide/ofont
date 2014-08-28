@@ -34,11 +34,13 @@ Ofont is based on ProcessWire, those information will help you to install it.
 
 2. Before installing ProcessWire, rename the folder `/site-default/` to `/site/` then copy and paste these files from ofont directory to ProcessWire directory:
 
-        /site/install/
-        /site/templates/
-        /site/modules/
-	`/config-example.php`
-	`/LICENSE`
+```
+/site/install/
+/site/templates/
+/site/modules/
+/config-example.php
+/LICENSE
+```
 
 3. Create a new dedicated SQL database using [PhpMyAdmin](http://www.phpmyadmin.net/home_page/index.php).
 
@@ -75,4 +77,4 @@ Ofont is still in development, so it may regularly come new features. To update 
 
 ## License
 
-This website profile is under [GNU/GPLv3 License](https://www.gnu.org/licenses/gpl-3.0.en.html).
+Ofont is under [GNU/GPLv3 License](https://www.gnu.org/licenses/gpl-3.0.en.html).
