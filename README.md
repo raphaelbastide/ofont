@@ -2,7 +2,15 @@
 
 <p align="center"><img width="200" height="90" alt="ofont logo" src="https://rawgithub.com/raphaelbastide/ofont/master/templates/styles/images/ofont.svg"></p>
 
-Ofont is a CMS for typeface collections. You can visit an up to date copy of ofont in use on: [http://usemodify.com](http://usemodify.com/)
+Ofont is a free and open source tool for font collections. It runs in the browser and is easy to install on your server. You can try a copy of ofont at: [http://usemodify.com](http://usemodify.com/)
+
+## Possible usages
+
+- Foundry, microfoundry
+- Font portfolio
+- Online or offline font managment
+- To share your favorites fonts!
+
 
 ## Features
 
@@ -22,28 +30,49 @@ Ofont is a CMS for typeface collections. You can visit an up to date copy of ofo
 
 Ofont is based on ProcessWire, those information will help you to install it.
 
-1. Download the latest version of [ProcessWire](http://processwire.com/) to another location (whether another site or another directory on this server). If you downloaded it as an archive, then unzip it too.
+1. Download the dev version of [ProcessWire](https://github.com/ryancramerdesign/ProcessWire/archive/dev.zip) then unzip it to another location.
 
-2. Before running the installer for the new version of ProcessWire you just downloaded, you will want to replace the site profile that the new version comes with. To do that, replace these directories on the new installation with the same directories (located under /site/) from your current (this) installation:
+2. Before installing ProcessWire, rename the folder `/site-default/` to `/site/` then copy and paste these files from ofont directory to ProcessWire directory:
 
-        /site-default/install/
-        /site-default/templates/
-        /site-default/modules/
+        /site/install/
+        /site/templates/
+        /site/modules/
+	`/config-example.php`
+	`/LICENSE`
 
-3. If you will be installing on the same server you are on now, create a new MySQL database for the new installation. You don't want to use the same database that the current site is using.
+3. Create a new dedicated SQL database using [PhpMyAdmin](http://www.phpmyadmin.net/home_page/index.php).
 
-4. Replace the database configuration in `config-example.php` with your own configuration, then rename the file to `config.php`
+4. Rename the file `config-example.php` to `config.php`.
 
-5. After you've completed the steps above, run the installer for the new site by loading it in your browser and installing as you would any other new copy of ProcessWire. It will install with the site profile you created rather than the one that it comes with.
+5. After you've completed the steps above, run the installer for the new site by loading it in your browser and follow the instructions.
 
 ## When Finished
 
-It's not good to leave your exported profile lying around as it may be consuming quite a bit of disk space. As a result, I recommend that you remove the profile when done with all of the above steps.
+It's not good to leave the exported profile lying around as it may be consuming quite a bit of disk space. As a result, I recommend that you remove the profile when done with all of the above steps (`/site/install/install.sql`).
 
 ## Customise
 
 Ofont uses [Stylus](http://learnboost.github.io/stylus/) for CSS compiling, and [Fontello](http://fontello.com/) to generate icon font.
 
+## Update to the latest ofont version
+
+Ofont is still in development, so it may regularly come new features. To update your ofont to the latest available version follow those steps :
+
+1. First of all, for safety it is recommended to backup your database.
+
+2. Copy and paste these files from the latest ofont directory to your current directory:
+
+        /site/templates/
+        /site/modules/
+
+3. In your ProcessWire admin, go to `Admin->Modules` then click * Check for New Modules*. If new modules are found, install it.
+
+4. Copy the content of `/updateFiles/fields.txt` from the latest ofont directory and paste it to `Admin->Setup->Fields->Import` in your ProcessWire admin. Click *Preview* then agree to every changes.
+
+5. Copy the content of `/updateFiles/templates.txt` from the latest ofont directory and paste it to `Admin->Setup->Templates->Import` in your ProcessWire admin. Click *Preview* then agree to every changes.
+
+6. Enjoy!
+
 ## License
 
-This website profile is under [MIT License](http://raphael.mit-license.org/).
+This website profile is under [GNU/GPLv3 License](https://www.gnu.org/licenses/gpl-3.0.en.html).
