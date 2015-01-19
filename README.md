@@ -30,7 +30,7 @@ Ofont is a free and open source tool for font collections. It runs in the browse
 
 Ofont is based on ProcessWire, those information will help you to install it.
 
-1. Download the dev version of [ProcessWire](https://github.com/ryancramerdesign/ProcessWire/archive/dev.zip) then unzip it to another location.
+1. Download the last version of [ProcessWire](https://github.com/ryancramerdesign/ProcessWire/archive/dev.zip) then unzip it to another location.
 
 2. Before installing ProcessWire, rename the folder `/site-default/` to `/site/` then copy and paste the following files from ofont directory to ProcessWire directory:
 
