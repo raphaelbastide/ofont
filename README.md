@@ -40,9 +40,10 @@ Ofont is based on ProcessWire, those information will help you to install it.
         /config-example.php
         /LICENSE
 
-3. Create a new dedicated SQL database using [PhpMyAdmin](http://www.phpmyadmin.net/home_page/index.php).
 
-4. Delete the existing `config.php` and rename the file `config-example.php` to `config.php`.
+3. Delete the existing `config.php` and rename the file `config-example.php` to `config.php`.
+
+4. Create a new dedicated SQL database using [PhpMyAdmin](http://www.phpmyadmin.net/home_page/index.php).
 
 5. After you've completed the steps above, run the installer `/install.php` for the new site by loading it in your browser and follow the instructions.
 
