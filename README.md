@@ -37,8 +37,7 @@ Ofont is based on ProcessWire, those information will help you to install it.
         /site/install/
         /site/templates/
         /site/modules/
-        /config-example.php
-        /LICENSE
+        /site/config-example.php
 
 
 3. Delete the existing `config.php` and rename the file `config-example.php` to `config.php`.
