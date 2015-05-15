@@ -1,8 +1,7 @@
-
-
 <?php
 
-$fontlist = $fonts->find("id>1, limit=6, draft=0, sort=name");
+$fontlist = $fonts->find("$filter,limit=6, draft=0, sort=-created");
+
 $pagination = $fontlist->renderPager(array(
   'nextItemLabel' => "▶",
   'previousItemLabel' => "◀",
@@ -41,13 +40,7 @@ foreach($fontlist as $font){
     } else if (isset($_COOKIE['demo-text-1'])) {
       $demotext1 = htmlspecialchars($_COOKIE['demo-text-1'], ENT_QUOTES|ENT_HTML5);
     } else {
-      $demotext1 = "Alice’s real name is Bob.";
-    }
-
-    if (isset($_COOKIE['demo-text-2'])) {
-      $demotext2 = htmlspecialchars($_COOKIE['demo-text-2'], ENT_QUOTES|ENT_HTML5);
-    } else {
-      $demotext2 = "O verdadeiro sábio é aquele que assim se dispõe que os acontecimentos exteriores o alterem minimamente. Para isso precisa couraçar-se cercando-se de realidades mais próximas de si do que os fatos, e através das quais os fatos, alterados para de acordo com elas, lhe chegam. Fernando Pessoa";
+      $demotext1 = $config->demotext;
     }
 
     for ($i = 0; $i < $len; $i++) {
@@ -69,8 +62,7 @@ foreach($fontlist as $font){
       font-style: normal;
   }";
       echo "</style>";
-      echo "<p class='fontdemo1' style='font-family:\"{$fontname}\";'><input type=text value='$demotext1'></p>";
-      echo "<p class='fontdemo2' style='font-family:\"{$fontname}\";'><input type=text value='$demotext2'></p>";
+      echo "<p class='fontdemo1' style='font-family:\"{$fontname}\";'><input type=text spellcheck='false' value='$demotext1'></p>";
       echo "<p class='legend'><button title='Fullscreen view' class='icon fullscreen icon-fullscreen'></button><a href='{$font->url}'>{$fontname}</a></p>";
       echo "</div>"; // END .font
     }

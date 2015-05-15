@@ -1,16 +1,16 @@
-<?php 
+<?php
 
 /**
  * Keyword template
  *
  */
 
-include("./head.inc"); 
-
+include("./head.inc");
 echo'<h1>Keyword: “'.$page->title.'”</h1>';
 
-$fonts = $pages->find("keywords=$page");
-include("./fontlist.inc"); 
+$fonts = $pages->get("/fonts/");
+$filter = "keywords=$page";
 
-include("./foot.inc"); 
+include("./fontlist.inc");
 
+include("./foot.inc");

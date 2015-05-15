@@ -5,9 +5,7 @@
 <?php
 
 $fonts = $pages->get("/fonts/");
+$filter = "";
 include("./fontlist.inc");
 
-include("./foot.inc"); 
-
-
-
+include("./foot.inc");
