@@ -8,7 +8,6 @@ Ofont is a free and open source tool for font collections. It runs in the browse
 
 - Foundry, microfoundry
 - Font portfolio
-- Online or offline font managment
 - To share your favorites fonts!
 
 
